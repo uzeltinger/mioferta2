@@ -330,6 +330,33 @@ export class UserServiceProvider {
       );    
   }
 
+  sendTokenToServer(sendData:any): Observable<any> {    
+    console.log("sendData", sendData);
+    //sendData = {'datosUsuario':datosUsuario,'registration':registration};    
+    this.httpOptions = this.getHeader();    
+    sendData.email = this.user.email;
+    return this.httpClient.post<any>(this.apiUrl+"company/setToken", sendData, this.httpOptions)
+      .pipe(
+        tap(// Log the result or error
+        data => {
+          this.storeCompanyData(data);
+          console.log("data", data);
+          //console.log("company", company);                               
+        },
+        error => {
+          console.log("error", error);
+          if(error.status == 401){            
+            
+          }
+        }
+      ),
+        catchError(this.handleError)
+      );    
+  }
+
+
+
+
   getHeader() {
     //console.log('UserServiceProvider : getHeader : line 130 this.user.token : ', this.user.token);
     return {

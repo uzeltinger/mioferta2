@@ -13,6 +13,7 @@ import { EditOffersPage } from '../edit-offers/edit-offers';
 import { EditOfferPage } from '../edit-offer/edit-offer';
 import { ProfileAutocompleteAddressPage } from '../profile-autocomplete-address/profile-autocomplete-address';
 
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -23,16 +24,16 @@ export class ProfilePage {
   company: Company = new Company;
   showSplash: boolean;
   errorMessage: any;
-  profileAddress: any = {"place":""};
-    latitude: string;
-    longitude: string;
-    address: string;
-    street_number: string;
-    countryId: number;
-    county: string;
-    province: string;
-    city: string;
-    postal_code: string;
+  profileAddress: any = { "place": "" };
+  latitude: string;
+  longitude: string;
+  address: string;
+  street_number: string;
+  countryId: number;
+  county: string;
+  province: string;
+  city: string;
+  postal_code: string;
 
   constructor(public platform: Platform,
     public navCtrl: NavController,
@@ -41,28 +42,48 @@ export class ProfilePage {
     private toast: Toast,
     private googlePlus: GooglePlus,
     public userService: UserServiceProvider,
-    private modalCtrl:ModalController) {  }
+    private modalCtrl: ModalController,
+    private push: Push) { }
 
   ionViewDidLoad() {
+    this.suscribeUserInfo();
     this.userInfo = this.userService.getUser();
     this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
     this.company = this.userService.getCompany();
     setTimeout(() => {
-      this.formatCompanyAddress();    
-    }, 1000);    
-    
-    let date = new Date();    
+      this.formatCompanyAddress();
+    }, 1000);
+
+    let date = new Date();
     var lastDay = new Date(date.getFullYear(), date.getMonth(), 0);
     var toDay = new Date();
-    console.log('lastDay',lastDay);
-    console.log('toDay',toDay);
+    console.log('lastDay', lastDay);
+    console.log('toDay', toDay);
     var options = {
-      year: "numeric", month: "short", day: "numeric"     
-  };
-  console.log('toLocaleDateString',date.toLocaleDateString("es-ar", options));
+      year: "numeric", month: "short", day: "numeric"
+    };
+    console.log('toLocaleDateString', date.toLocaleDateString("es-ar", options));
 
   }
-  formatCompanyAddress(){
+  suscribeUserInfo() {
+    this.userService.suscribeUserInfo()
+      .subscribe(
+        (data) => {
+          setTimeout(() => {
+            console.log('data', data);
+            this.checkUserData(data);
+          }, 1000);
+        },
+        (error) => {
+          console.log('error', error);
+        }
+      )
+  }
+  checkUserData(data) {
+    this.pushNotifications(data);
+  }
+
+  formatCompanyAddress() {
     let addressFormated = this.company.address + ' ' + this.company.street_number;
     addressFormated = addressFormated + ', ' + this.company.city;
     addressFormated = addressFormated + ', ' + this.company.county;
@@ -142,7 +163,7 @@ export class ProfilePage {
     });
   }
 
-  companyForm(form) {    
+  companyForm(form) {
     console.log('form this.company: ', this.company);
     this.showSplash = true;
     //this.showSplash = true;
@@ -174,55 +195,55 @@ export class ProfilePage {
 
 
 
-  showAddressModal () {
+  showAddressModal() {
     let modal = this.modalCtrl.create(ProfileAutocompleteAddressPage);
     //let me = this;
     modal.onDidDismiss(data => {
       console.log('aca', typeof data);
-      if(typeof data!="undefined" && data != null){
+      if (typeof data != "undefined" && data != null) {
         console.log('data', data);
         this.profileAddress.place = data.formatted_address;
         this.placeToAddress(data);
-        console.log('this.profileAddress.place',this.profileAddress.place);
+        console.log('this.profileAddress.place', this.profileAddress.place);
       }
-        
+
     });
     modal.present();
   }
-  
-  placeToAddress(place){
+
+  placeToAddress(place) {
     this.company.latitude = place.geometry.location.lat();
     this.company.longitude = place.geometry.location.lng();
-    place.address_components.forEach( c =>  {
-        switch(c.types[0]){
-            case 'street_number':
-            this.company.street_number = c.long_name;
-                break;
-            case 'route':
-            this.company.address = c.long_name;
-                break;
-            case 'neighborhood': case 'locality':    // North Hollywood or Los Angeles?
-            this.company.city = c.long_name;
-                break;
-            case 'administrative_area_level_1':     //  Note some countries don't have states
-            this.company.county = c.long_name;
-                break;
-            case 'postal_code':
-            this.company.postal_code = c.long_name;
-                break;
-            case 'administrative_area_level_2':
-            this.company.province = c.long_name;
-                break;                
-        }
+    place.address_components.forEach(c => {
+      switch (c.types[0]) {
+        case 'street_number':
+          this.company.street_number = c.long_name;
+          break;
+        case 'route':
+          this.company.address = c.long_name;
+          break;
+        case 'neighborhood': case 'locality':    // North Hollywood or Los Angeles?
+          this.company.city = c.long_name;
+          break;
+        case 'administrative_area_level_1':     //  Note some countries don't have states
+          this.company.county = c.long_name;
+          break;
+        case 'postal_code':
+          this.company.postal_code = c.long_name;
+          break;
+        case 'administrative_area_level_2':
+          this.company.province = c.long_name;
+          break;
+      }
     });
-    
-    console.log('street_number',this.company.street_number);
-    console.log('address',this.company.address);
-    console.log('city',this.company.city);
-    console.log('county',this.company.county);
-    console.log('postal_code',this.company.postal_code);
-    console.log('province',this.company.province);
-}
+
+    console.log('street_number', this.company.street_number);
+    console.log('address', this.company.address);
+    console.log('city', this.company.city);
+    console.log('county', this.company.county);
+    console.log('postal_code', this.company.postal_code);
+    console.log('province', this.company.province);
+  }
 
 
 
@@ -239,4 +260,56 @@ export class ProfilePage {
 
 
 
+  pushNotifications(data) {
+    this.push.hasPermission()
+      .then((res: any) => {
+        if (res.isEnabled) {
+          console.log('We have permission to send push notifications');
+        } else {
+          console.log('We do not have permission to send push notifications');
+        }
+      });
+
+    const options: PushOptions = {
+      android: {},
+      ios: {
+        alert: 'true',
+        badge: true,
+        sound: 'false'
+      },
+      windows: {},
+      browser: {
+        pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+      }
+    };
+    const pushObject: PushObject = this.push.init(options);
+
+
+    pushObject.on('registration').subscribe(
+      (registration: any) => {
+        console.log('Device registered', registration);
+        this.sendTokenToServer(data,registration);
+      }
+    );
+
+    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+  }
+
+
+
+  sendTokenToServer(datosUsuario,registration) {
+    let sendData = datosUsuario//;{'datosUsuario':datosUsuario,'registration':registration};
+    sendData.registrationId = registration.registrationId;
+    this.userService.sendTokenToServer(sendData)
+      .subscribe(
+        (data) => {
+          setTimeout(() => {
+            console.log('data', data);
+          }, 1000);
+        },
+        (error) => {
+          console.log('error', error);
+        }
+      )
+  }
 }

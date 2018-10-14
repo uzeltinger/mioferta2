@@ -1,0 +1,34 @@
+page-offers {
+    .grid-bottom {
+        background-color: #ff6900;
+        font-weight: 500;
+    }
+    .old-price {    
+        text-decoration: line-through;
+    }
+    .text-white {
+        color: #fff;
+    }
+    .boton-buscar {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background: none;
+    }    
+    .boton-buscar .item {
+        background: none;
+    }
+    .title-container {
+        position:relative;
+    }
+    .offer-list-distance {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        color: #fff;
+    }
+    .offer-list-icon-whatsapp {
+        z-index: 999;
+    }
+}

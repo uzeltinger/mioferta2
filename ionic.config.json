@@ -1,0 +1,7 @@
+{
+  "name": "mioferta",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

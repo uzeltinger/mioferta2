@@ -1,0 +1,107 @@
+<!--
+  Generated template for the EditOffersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>Mis ofertas</ion-title>
+        <ion-buttons end>
+            <button (click)="toolbarToggle()" ion-button icon-only>
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar *ngIf="toolbarShow">
+        <ion-buttons end>
+            <button *ngIf="taskCreate" ion-button icon-only (click)="goNewOfferPage()">
+                <ion-icon name="add-circle"></ion-icon>
+            </button>
+            <button *ngIf="taskConsults" ion-button icon-only (click)="goConsultsPage()">
+                <ion-icon name="contacts"></ion-icon>
+            </button>
+            <button *ngIf="taskShare" ion-button icon-only (click)="goShareOffers()">
+                <ion-icon name="share"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<div *ngIf="showSplash" class="splash">
+    <div class="spinner">
+        <ion-spinner></ion-spinner>
+    </div>
+</div>
+<!--
+<ion-content class="darkbackground">
+    <ion-list>
+        <ion-item *ngFor="let offer of offers">
+            <ion-avatar item-start>
+                <img src="{{pictures_path}}{{offer.picture_path}}">
+            </ion-avatar>
+            <button ion-button outline item-end color="verdeDaniel" (click)="editOffer($event, offer)">Editar</button>
+            <button ion-button item-end (click)="deleteOffer($event, offer)">Borrar</button>
+            <ion-label>
+                <h2>{{offer.subject}}</h2>
+                <p>{{offer.specialPriceFormated}}</p>
+            </ion-label>
+            <ion-toggle [(ngModel)]="offer.isAssigned"></ion-toggle>
+
+        </ion-item>
+    </ion-list>
+</ion-content>
+-->
+
+<ion-content class="colorRojoOscurobackground" >
+    <ion-row class="topEditOffers">        
+        <ion-col col-3><p></p></ion-col>
+        <ion-col col-3 text-center>
+            <ion-badge class="ion-badge-x2" color="colorAmarillo">{{offersTotal}}</ion-badge>
+            <br><small>PRODUCTOS</small>
+        </ion-col>
+        <ion-col col-3 text-center>
+            <ion-badge class="ion-badge-x2" color="colorRosa">{{offersActives}}</ion-badge>
+            <br><small>ACTIVOS</small>
+        </ion-col>
+        <ion-col col-3 text-center>
+            <ion-icon class="icon-share-x3" color="white" name="share" (click)="goShareOffers()"></ion-icon>
+        </ion-col>
+    </ion-row>    
+    <ion-card color="colorRojoOscuro" *ngFor="let offer of offers">
+        <ion-row class="item-renglon">
+            <ion-col col-3>
+                <ion-avatar>
+                    <img src="{{pictures_path}}{{offer.picture_path}}">
+                </ion-avatar>
+            </ion-col>
+            <ion-col col-9>
+                <h2 item-start>{{offer.subject}}</h2>
+                <ion-row>
+                    <ion-col>
+                        <button color="white" clear ion-button icon-only (click)="editOffer($event, offer)">
+                            <ion-icon class="bigicon" name="create"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col>
+                        <button color="white" clear ion-button icon-only (click)="deleteOffer($event, offer)">
+                            <ion-icon class="bigicon" name="trash"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col>
+                        <button color="verde" clear ion-button icon-only (click)="itemsSelectedShare(offer)">
+                            <ion-icon class="bigicon" name="logo-whatsapp"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col>
+                        <div class="toggle-container">
+                        <ion-toggle color="verde" (ionChange)="toggleOfferState(offer)" [(ngModel)]="offer.isAssigned"></ion-toggle>
+                    </div>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-card>          
+</ion-content>

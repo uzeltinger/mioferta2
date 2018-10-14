@@ -1,0 +1,71 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+      <ion-title>{{offer.subject}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content  class="darkbackground">
+  <ion-card class="offer-list-card">    
+      <div class="offer-list-card-img">
+          <img src="https://mioferta.com.ar/media/com_jbusinessdirectory/pictures{{offer.picture_path}}">        
+          <div class="offer-list-discount"><span>-{{offer.priceDiscount}}%</span></div>
+          
+      </div>
+
+      <ion-card-content>
+        <ion-card-title>
+            
+        </ion-card-title>        
+    </ion-card-content>      
+
+      <div class="offer-card-details">
+
+          <div class="offer-card-details-icon-whatsapp">
+              <ion-icon float-right>
+                  <a target="_blank" (click)="increaseWhatsappCount(offer)" href="https://api.whatsapp.com/send?phone=54{{offer.phone}}&text={{whatsappText}} {{offer.link}}">
+                      <img src="assets/img/whatsappicon.png">
+                  </a>
+              </ion-icon>
+          </div>
+
+
+          <ion-card-content>
+            <p>{{offer.short_description}}</p>
+          </ion-card-content>
+<ion-card-content>
+  <p><ion-icon name='podium'></ion-icon> <span>{{offer.company_name}}</span></p>
+  <p><ion-icon name='pin'></ion-icon> <span>{{offer.full_address}}</span></p>
+  <p><ion-icon name='calendar'></ion-icon> <span>Vigencia {{offer.start_to_end_date}}</span></p>
+</ion-card-content>
+
+
+<ion-card-content>
+  <ion-grid>
+    <ion-row justify-content-around>
+      <ion-col>
+        <div class="offer-list-prices priceFormated">
+          <span>{{offer.priceFormated}}</span>
+        </div>
+      </ion-col>
+      <ion-col>
+          <div class="offer-list-discount-amount">{{offer.priceDiscount}}%</div>
+          <div class="offer-list-discount-text">Descuento</div>
+      </ion-col>
+      <ion-col>
+          <div class="offer-list-prices specialPriceFormated">
+            <span>{{offer.specialPriceFormated}}</span>
+          </div>          
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card-content>
+</div>
+
+
+
+
+  </ion-card>
+</ion-content>

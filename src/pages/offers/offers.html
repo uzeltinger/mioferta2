@@ -1,0 +1,49 @@
+<!--
+  Generated template for the OffersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+  <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Ofertas</ion-title>
+</ion-navbar>
+
+</ion-header>
+
+<div *ngIf="showSplash" class="splash">
+  <div class="spinner"><ion-spinner></ion-spinner></div>
+</div>
+
+<ion-content  class="darkbackground">
+    <ion-card *ngFor="let offer of offers" class="offer-list-card">    
+        <div class="offer-list-card-img">
+            <img (click)="navToOfferPage($event, offer)" src="https://mioferta.com.ar/media/com_jbusinessdirectory/pictures{{offer.picture_path}}">        
+            <div class="offer-list-discount" (click)="navToOfferPage($event, offer)"><span>-{{offer.priceDiscount}}%</span></div>
+            <div class="offer-list-icon-whatsapp">
+                <ion-icon float-right>
+                    <a target="_blank" (click)="increaseWhatsappClick(offer)" href="https://api.whatsapp.com/send?phone=54{{offer.phone}}&text={{whatsappText}} {{offer.link}}">
+                        <img src="assets/img/whatsappbutton144.png">
+                    </a>
+                </ion-icon>
+            </div>
+        </div>
+        <ion-card-content class="title-container" (click)="navToOfferPage($event, offer)">
+            <ion-card-title>
+                <div class="offer-list-price">{{offer.specialPriceFormated}}</div>
+            </ion-card-title>
+            <div class="offer-list-title">{{offer.subject}}</div>   
+            <div *ngIf="offer.distance" class="offer-list-distance">{{offer.distance}} Km</div>           
+        </ion-card-content>
+
+    </ion-card>
+    <div class="boton-buscar">
+        <ion-item text-center>
+            <button class="button-action" ion-button block color="verdeDaniel" (click)="presentModal()"><div *ngIf="!filtrosAplicados">BUSCAR</div><div *ngIf="filtrosAplicados">LIMPIAR FILTROS</div></button>
+        </ion-item>
+    </div>
+</ion-content>

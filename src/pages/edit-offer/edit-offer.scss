@@ -1,0 +1,94 @@
+page-edit-offer {
+    .bg-image{
+        background: url('../assets/img/perfilFondo.jpg') no-repeat center center;
+    }
+    .divNewImage {
+        width: 100%;
+        min-height: 300px;
+        position: relative;
+        border: 1px solid rgb(255, 255, 255);
+        border: 1px solid rgba(255, 255, 255, .5);
+        -webkit-background-clip: padding-box; /* for Safari */
+        background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+    }
+    .newImageActions {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+    .newImageCenteredIcon {
+        position: absolute;
+        bottom: 40%;
+        left: 40%;
+        right: 40%;
+        width: 100%;
+        opacity: .5;
+    }
+    .newImageCenteredIcon .icon{
+        font-size: 5em;
+        color: #fff;
+    }
+    [icon-only] ion-icon {
+        padding: 0;
+    }
+    .oldImageCentered {
+        width: 100%;
+        min-height: 300px;
+        position: relative;
+    }
+    .divOldImage {
+        width: 100%;
+        min-height: 300px;
+        position: relative;
+    }
+    .oldImageActions {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+    .divNewPhoto, .divGalleryPhoto {
+        width: 100%;
+        min-height: 300px;
+        position: relative;
+    }
+    .newPhotoCentered, .newGalleryCentered {
+        width: 100%;
+        min-height: 300px;
+        position: relative;
+    }
+    .newPhotoActions, .newGalleryActions {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+    .prices-grid {
+        padding: 0;
+    }
+    .price-col-50 {
+        width: 50%;
+    }
+    .price-col-50.price{
+        padding-right: 5px;
+    }
+    .price-col-50.specialPrice{
+        padding-left: 5px;
+    }
+    
+    .price-col-50 input {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+    .ion-badge-x2 {        
+    padding: 1rem 1.5rem;
+    font-size: 2rem;
+    }
+}
+
+.alert-checkbox-group {
+    max-height: 250px!important;
+}
+.alert-md .alert-tappable{
+    max-height: 54px!important;
+    height: 54px!important;
+    min-height: 54px!important;
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Mi Oferta",
+  "short_name": "Mi Oferta",
+  "start_url": "index.html",
+  "display": "standalone",
+  "icons": [{
+    "src": "assets/img/logo.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "background_color": "#E72000",
+  "theme_color": "#E72000"
+}

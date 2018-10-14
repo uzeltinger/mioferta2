@@ -1,0 +1,24 @@
+page-home {
+    .bg-image{
+        background: url('../assets/img/inicioFondo.jpg') no-repeat center center;
+    }
+    .home-logo {
+        margin: auto;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+        width: 128px;
+        height: 128px;
+        text-align: center;
+        background: url('../assets/img/home-logo.png') no-repeat center center;
+    }
+    button.seleccione {
+        background-color: rgba(26, 24, 24, 0.6);        
+        padding: 4rem;
+        width: 80%;
+        margin-top: 2rem;
+        font-size: 2rem;
+    }
+    .button span {
+       color: #fff;
+    }
+}

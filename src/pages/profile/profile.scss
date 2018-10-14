@@ -1,0 +1,58 @@
+page-profile {
+  .bg-image{
+      background: url('../assets/img/perfilFondo.jpg') no-repeat center center;
+  }  
+  
+  .mioferta-logo {
+    margin: auto;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    width: 128px;
+    height: 128px;
+    text-align: center;
+    background: url('../assets/img/home-logo.png') no-repeat center center;
+}
+.login-with {
+  width: 75%;
+}
+  .profile-avatar-center {
+    z-index: 99;    
+    width: 100%;    
+    text-align: center;
+    height: 100px;
+  }
+  .profile-avatar-center-inner {
+    background: #E72000;
+    height: 37px;    
+    width: 100%;
+    text-align: center;
+  }
+  .profile-avatar-center img {
+    border-radius: 50%;
+    float: left;
+    width: 20%;
+    margin: 0 auto;
+    margin-left: 40%;
+    margin-right: 40%;
+    height: 75px;
+  }
+  .profile-avatar-center .user-first_name {    
+    margin-top: 1rem;
+    width: 100%;
+    float: left;
+  }    
+  
+  .text-uppercase.salir {
+    line-height: 4rem;
+  }
+  .item-guardar-comercio .label {
+    margin-top: .5rem;
+    margin-bottom: 0;
+  }
+  .guardar-comercio {
+    margin-top: 0;
+  }
+  .button-md-colorTextGrey.button-link {
+    margin-top: 0;
+  }
+}

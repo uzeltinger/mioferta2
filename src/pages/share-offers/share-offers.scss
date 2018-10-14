@@ -1,0 +1,45 @@
+page-share-offers {
+    ion-avatar img {
+        border-radius: 50%;
+        width: 75px;
+        height: 75px;
+        }
+        .colorRojoOscurobackground {
+            background: #7C0000;
+        }
+        .topEditOffers {
+            background: #000;
+            color: #fff;
+            padding: 2rem 0;
+        }
+        .icon-share-x3 {
+            font-size: 3rem;
+            margin-top: .5rem;
+        }
+        .ion-badge-x2 {
+            font-size: 2rem;
+        }
+        .ion-logo-whatsapp {
+            color: #58b85d!important;
+        }
+        .toggle-container {
+            width: 30px;
+            height: 14px;
+        }
+        .col {
+            padding:0;
+        }
+        .card .row {        
+            margin-bottom: .8rem;
+        }
+        .icon.bigicon {
+            font-size: 3rem;
+        }
+        .card .row.item-renglon {
+            margin-bottom:0;
+            padding-bottom: 0;
+        }
+        .background-transparent {
+            background: none;
+        }
+}

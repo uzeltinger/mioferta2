@@ -1,0 +1,235 @@
+<!--
+  Generated template for the EditOfferPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>
+            <span *ngIf="offerPageTitle">{{offerPageTitle}}</span>
+            <span *ngIf="isNewOffer">Agregar Oferta</span>
+        </ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<div *ngIf="showSplash" class="splash">
+    <div class="spinner">
+        <ion-spinner></ion-spinner>
+    </div>
+</div>
+
+<ion-content padding class="bg-image">
+
+    <ion-grid>
+        <ion-row class="topEditOffers">
+            <ion-col col-12 text-center>
+                <ion-badge class="ion-badge-x2" color="colorAmarillo">1</ion-badge>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div *ngIf="!offerNew.picture_path && !newPhoto && !galleryPhoto" class="divNewImage">
+        <div class="newImageCenteredIcon">
+            <ion-icon name="camera"></ion-icon>
+        </div>
+        <div class="newImageActions">
+            <ion-grid>
+                <ion-row align-items-center>
+                    <ion-col col-4></ion-col>
+                    <ion-col col-4 text-center>
+                        <button ion-button icon-only class="button-link" color="colorTextGrey" (click)="takePhoto()">
+                            <ion-icon name="camera"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col col-4 text-center>
+                        <button ion-button icon-only class="button-link" color="colorTextGrey" (click)="takePicture()">
+                            <ion-icon name="images"></ion-icon>
+                        </button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+
+    <div *ngIf="offerNew.picture_path" class="divOldImage">
+        <ion-grid>
+            <div class="oldImageCentered">
+                <ion-row align-items-center>
+                    <img src="{{pictures_path}}{{offerNew.picture_path}}">
+                </ion-row>
+                <div class="oldImageActions">
+                    <ion-grid>
+                        <ion-row align-items-center>
+                            <ion-col col-4></ion-col>
+                            <ion-col col-4 text-center>
+                            </ion-col>
+                            <ion-col col-4 text-center>
+                                <button ion-button icon-only class="button-link" color="colorTextGrey" (click)="deleteOldImage()">
+                                    <ion-icon name="trash"></ion-icon>
+                                </button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </div>
+        </ion-grid>
+    </div>
+
+    <div *ngIf="newPhoto" class="divNewPhoto">
+        <ion-grid>
+            <div class="newPhotoCentered">
+                <ion-row align-items-center>
+                    <img [src]=newPhoto>
+                </ion-row>
+                <div class="newPhotoActions">
+                    <ion-grid>
+                        <ion-row align-items-center>
+                            <ion-col col-4></ion-col>
+                            <ion-col col-4 text-center>
+                            </ion-col>
+                            <ion-col col-4 text-center>
+                                <button ion-button icon-only class="button-link" color="colorTextGrey" (click)="deletePhoto()">
+                                    <ion-icon name="trash"></ion-icon>
+                                </button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </div>
+        </ion-grid>
+    </div>
+
+    <div *ngIf="galleryPhoto" class="divGalleryPhoto">
+        <ion-grid>
+            <div class="newGalleryCentered">
+                <ion-row align-items-center>
+                    <img [src]=galleryPhoto *ngIf="galleryPhoto" />
+                </ion-row>
+                <div class="newGalleryActions">
+                    <ion-grid>
+                        <ion-row align-items-center>
+                            <ion-col col-4></ion-col>
+                            <ion-col col-4 text-center>
+                            </ion-col>
+                            <ion-col col-4 text-center>
+                                <button ion-button icon-only class="button-link" color="colorTextGrey" (click)="deletePhoto()">
+                                    <ion-icon name="trash"></ion-icon>
+                                </button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </div>
+        </ion-grid>
+    </div>
+
+    <ion-grid>
+        <ion-row class="topEditOffers">
+            <ion-col col-12 text-center>
+                <ion-badge class="ion-badge-x2" color="colorPrimary">2</ion-badge>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+
+    <!--
+    <ion-grid>
+        <ion-row align-items-center>
+            <ion-col text-center>
+                <button ion-button icon-only round>
+                    <ion-icon name="list"></ion-icon>
+                </button>
+                <div text-center>Ofertas</div>
+            </ion-col>
+            <ion-col text-center>
+                <button ion-button icon-only round (click)="takePhoto()">
+                    <ion-icon name="camera"></ion-icon>
+                </button>
+                <div text-center>Cámara</div>                
+            </ion-col>
+            <ion-col text-center>
+                <button ion-button icon-only round (click)="takePicture()">
+                    <ion-icon name="images"></ion-icon>
+                </button>
+                <div text-center>Galería</div>                
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+-->
+
+
+
+
+
+
+    <form (ngSubmit)="onSubmitSaveOffer(offerDataForm)" #offerDataForm="ngForm">
+    
+        <ion-list>
+            <ion-item class="ion-item-input-trans">
+                <ion-label>Categoría</ion-label>
+                <ion-select [(ngModel)]="offerNew.categories" multiple="true" #categories="ngModel" name="categories" required>
+                    <ion-option *ngFor="let category of allCategories" [value]="category.id">{{category.name}}</ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+
+
+        <ion-grid>
+                <ion-row class="topEditOffers">
+                    <ion-col col-12 text-center>
+                        <ion-badge class="ion-badge-x2" color="colorRosa">3</ion-badge>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+
+        <ion-item>
+            <ion-label color="light" stacked>Título</ion-label>
+            <ion-input class="ion-input-trans" type="text" name="subject" placeholder="Titulo" id="subject" #subject="ngModel" [(ngModel)]="offerNew.subject"
+                required></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label color="light" stacked>Descripción</ion-label>
+            <ion-input class="ion-input-trans" type="text" name="description" placeholder="Descripción" id="description" #description="ngModel"
+                [(ngModel)]="offerNew.description" required></ion-input>
+        </ion-item>
+
+        
+            <ion-grid class="prices-grid">
+                <ion-row>
+            <div class="price-col-50 price">
+                <ion-label color="light" stacked>Precio</ion-label>
+                <ion-input class="ion-input-trans" type="number" name="price" placeholder="Precio" id="price" #price="ngModel" [(ngModel)]="offerNew.price"
+                    required></ion-input>
+            </div>
+            <div class="price-col-50 specialPrice">
+                <ion-label color="light" stacked>Precio Especial</ion-label>
+                <ion-input class="ion-input-trans" type="number" name="specialPrice" placeholder="Precio Especial" id="specialPrice" #specialPrice="ngModel"
+                    [(ngModel)]="offerNew.specialPrice" required></ion-input>
+            </div>
+            </ion-row>
+            </ion-grid>
+
+
+        <ion-item text-center>
+            <button class="button-action" ion-button color="verdeDaniel" type="submit" [disabled]="!offerDataForm.form.valid">Guardar
+                Oferta</button>
+        </ion-item>
+
+        <!--<ion-item>
+                <button ion-button block type="submit" [disabled]="!offerDataForm.form.valid">Guardar Oferta</button>
+            </ion-item>-->
+
+    </form>
+
+    <!--    <ion-item>
+        <a ion-button block (click)="saveOffer()">Guardar Oferta</a>
+    </ion-item>
+-->
+
+</ion-content>

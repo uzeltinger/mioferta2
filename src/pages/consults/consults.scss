@@ -1,0 +1,57 @@
+page-consults {
+    .topEditOffers {
+        background: #000;
+        color: #fff;
+        padding: 2rem 0;
+    }
+    ion-avatar img {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        }
+        .colorRojoOscurobackground {
+            background: #7C0000;
+        }
+        .card-md-colorRojoOscuro {
+            background: #6b0101;
+        }
+        .item-consult {
+            background: #7C0000;
+            border-bottom: 1px solid #6b0101;
+        }
+        .ion-badge-x2 {
+            font-size: 2rem;
+        }
+        .topEditOffers .col {
+            padding:0;
+        }
+        .ion-logo-whatsapp {
+            color: #58b85d!important;
+            font-size: 2rem;
+            margin-top: 5px;
+        }
+        .item-consult .col {
+            text-align: center;
+        }
+
+        .item-consult-list {
+            background: #000;
+        }
+        .item-consult-list .ion-scroll {
+            background: #000;
+            height: 40vh;
+            width:100%;
+        }
+        .item-consult-list .ion-scroll .item {
+            background: #000;
+        }
+        .item-consult-list .label {
+            margin: 0;
+        }
+        .item-consult-list .item-block {
+            min-height: 3rem;
+        }
+        .mt4px {
+            margin-top: 4px;
+        }
+}

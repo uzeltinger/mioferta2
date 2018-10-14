@@ -1,0 +1,96 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Perfil</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<div *ngIf="showSplash" class="splash">
+    <div class="spinner">
+        <ion-spinner></ion-spinner>
+    </div>
+</div>
+<!--
+
+-->
+<ion-content class="bg-image">
+    <div class="profile-avatar-center" *ngIf="userInfo.isUserLoggedIn">    
+    <div class="profile-avatar-center-inner">
+        <img src="{{userInfo.picture}}">        
+    </div>
+    <div class="user-first_name">{{userInfo.name}}</div>
+</div>
+
+    <div *ngIf="!userInfo.isUserLoggedIn" class="mioferta-logo"></div>
+
+    <div *ngIf="!userInfo.isUserLoggedIn" style="text-align:center">
+        <button class="login-with" ion-button icon-start color="facebookButton" (click)="goLoginFacebookPage()">
+            <ion-icon name="logo-facebook"></ion-icon>
+            Ingresar con Facebook
+        </button>
+    </div>
+    <div *ngIf="!userInfo.isUserLoggedIn" style="text-align:center">
+        <button class="login-with" ion-button icon-start color="googleButton" (click)="goLoginGooglePage()">
+            <ion-icon name="logo-googleplus"></ion-icon>
+            Ingresar con Google
+        </button>
+    </div>
+
+    <div *ngIf="userInfo.isUserLoggedIn">
+        <form (ngSubmit)="companyForm()">
+            <ion-item>
+                <ion-label color="light" stacked>Nombre del Comercio</ion-label>
+                <ion-input class="ion-input-trans" type="text" name="name" placeholder="Nombre" [(ngModel)]="company.name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="light" stacked>Whatsapp</ion-label>
+                <ion-input class="ion-input-trans" type="tel" name="whatsapp" placeholder="Whatsapp" [(ngModel)]="company.whatsapp"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="light" stacked>Direccion del Comercio</ion-label>
+                <ion-input disabled="true" class="ion-input-trans" type="text" name="address" placeholder="Dirección" 
+                    (click)="showAddressModal()" [(ngModel)]="profileAddress.place"></ion-input>
+                            
+            </ion-item>
+            <ion-item text-center class="item-guardar-comercio">
+                <button class="button-action guardar-comercio" ion-button color="verdeDaniel" type="submit" >Alta del Comercio</button>
+            </ion-item>           
+
+        </form>        
+
+        <ion-grid>
+            <ion-row align-items-center>
+                <ion-col text-center>
+                    <button ion-button icon-only class="button-link" color="colorTextGrey" (click)="goEditOffersPage()">
+                        <ion-icon name="list"></ion-icon>
+                    </button>
+                    <div text-center class="text-uppercase">Mis <br>Ofertas</div>
+                </ion-col>
+                <ion-col text-center>
+                    <button ion-button icon-only class="button-link" color="colorTextGrey" (click)="goNewOfferPage()">
+                        <ion-icon name="add"></ion-icon>
+                    </button>
+                    <div text-center  class="text-uppercase">Agregar <br>Oferta</div>                    
+                </ion-col>
+                <ion-col text-center>
+                    <button ion-button icon-only class="button-link" color="colorTextGrey" (click)="logout()">
+                        <ion-icon name="exit"></ion-icon>
+                    </button>
+                    <div text-center  class="text-uppercase salir">Salir</div>                    
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        
+
+    </div>
+</ion-content>

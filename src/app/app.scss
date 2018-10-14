@@ -1,0 +1,200 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+html {
+  font-size: 12px;
+}
+.font-16 {
+  font-size: 1.6rem;
+} 
+.font-18 {
+  font-size: 1.8rem;
+} 
+.splash {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    background: #E72000 url('../assets/img/Splash_pre.png') center center no-repeat;
+}
+ion-spinner * {
+    width: 28px;
+    height: 28px;
+    stroke: #fff;
+    z-index: 9;
+    top: 50%;
+  }
+  .spinner-md-crescent circle {
+    stroke: #fff;
+  }
+  .menu-inner .content-md{
+    background: #B40F00;
+  }
+  .menu-inner .list-md{ 
+    border-top: 1px solid #f6a7a7;
+  }
+  .menu-inner .item-md {
+    background: #B40F00;
+    border-bottom: 1px solid #f6a7a7;
+  }
+  .label, .icon {
+    color: #fff;
+  }
+
+  .menu-avatar {
+    padding: 2rem;
+    background: #B40F00;
+    width: 100%;
+    text-align: center;
+
+ 
+background: #b40f00; 
+background: -moz-linear-gradient(top, #b40f00 0%, #990c00 9%, #990c00 79%, #b40f00 100%); 
+background: -webkit-linear-gradient(top, #b40f00 0%,#990c00 9%,#990c00 79%,#b40f00 100%); 
+background: linear-gradient(to bottom, #b40f00 0%,#990c00 9%,#990c00 79%,#b40f00 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b40f00', endColorstr='#b40f00',GradientType=0 ); 
+ }
+  .menu-avatar img {
+    border-radius: 50%;
+    max-width: 100px;
+  }
+  .menu-avatar .sidemenuimagecontainer {
+    width: 100%;
+  }
+  .menu-avatar .user-first_name {
+    color: #fff;
+    margin-top: 1rem;
+  }
+  
+/* card-list*/
+
+.darkbackground {
+  background: #263134;
+}
+.offer-list-card {
+  border-radius: 10px;
+  background: #10191E;
+}
+.offer-list-card-img {
+  position: relative;
+}
+.offer-list-price {
+  color: #fff;
+}
+.offer-list-title {
+  color: #fff;
+}
+.offer-list-discount {
+  background: #FD0000;
+  color: #fff;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  border-radius: 50%;
+  font-size: 2rem;
+  padding: 25px 0;
+  text-align: center;
+  width: 80px;
+  height: 80px;
+}
+.darkbackground p{
+  color: #fff;
+}
+.offer-list-icon-whatsapp {
+  position: absolute;
+ bottom: -24px;
+ right: 1rem;
+}
+ion-app.md {
+  font-size: 1.6rem;
+}
+.item-md .item-button {
+  font-size: 1.6rem;
+}
+
+/*  boton gris transparente */
+.button-md-colorTextGrey.button-link {
+  padding: 1.5rem 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(26, 24, 24, 0.6);        
+  font-size: 2rem; 
+  margin-top: 1rem;
+  height: auto;
+}  
+
+/*  formulario transparente */
+
+.bg-image.content-md {
+  color: #fff;
+}
+.bg-image .item-md{
+  background: none;
+  color: #fff;
+}
+.header-md::after {
+  background: none;
+}
+.item-md .item-button.button-action {
+  padding: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(0, 107, 9, 0.65); 
+  font-size: 2rem; 
+  margin-top: 1rem;
+}  
+.item-md.item-block .item-inner {
+  border-bottom: none;
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+form {
+  padding: 1rem;
+}
+form .ion-input-trans {
+  border-bottom: none;
+  background-color: rgba(26, 24, 24, 0.6);
+  padding-left: 1rem; 
+  border-radius: .5rem;
+}
+form .ion-item-input-trans {
+  background-color: rgba(26, 24, 24, 0.6)!important;
+  padding-left: 1rem!important;
+  border-radius: .5rem;
+}
+form .item-md.item-block .item-inner {
+  padding-right: 0;
+}
+form .item-md {
+  padding-left: 0;
+}
+.label-md[stacked] {
+  padding-bottom: .5rem;
+}
+.item-md.item-input .item-inner {
+   border-bottom: none!important; 
+  -webkit-box-shadow: none!important; 
+  box-shadow: none!important; 
+}
+.item-input-has-focus .label-md[stacked]{
+  color: #fff;
+}
+
+/*  formulario transparente */

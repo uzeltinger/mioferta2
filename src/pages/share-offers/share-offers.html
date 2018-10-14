@@ -1,0 +1,57 @@
+<!--
+  Generated template for the ShareOffersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>Compartir mis ofertas</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<div *ngIf="showSplash" class="splash">
+    <div class="spinner">
+        <ion-spinner></ion-spinner>
+    </div>
+</div>
+
+<ion-content class="colorRojoOscurobackground">
+    <ion-row class="topEditOffers">
+        <ion-col col-3>
+            <p></p>
+        </ion-col>
+        <ion-col col-3 text-center>
+            <ion-badge class="ion-badge-x2" color="colorAmarillo">{{offersTotal}}</ion-badge>
+            <br><small>PRODUCTOS</small>
+        </ion-col>
+        <ion-col col-3 text-center>
+            <ion-badge class="ion-badge-x2" color="colorRosa">{{offersToShare}}</ion-badge>
+            <br><small>COMPARTIR</small>
+        </ion-col>
+        <ion-col col-3 text-center>
+            <ion-icon class="icon-share-x3" color="white" name="share-alt" (click)="shareThisOffers()"></ion-icon>
+        </ion-col>
+    </ion-row>
+    <ion-card color="colorRojoOscuro" *ngFor="let offer of offers">
+        <ion-row class="item-renglon">
+            <ion-col col-3>
+                <ion-avatar>
+                    <img src="{{pictures_path}}{{offer.picture_path}}">
+                </ion-avatar>
+            </ion-col>
+            <ion-col col-9>
+                <ion-item class="background-transparent">
+                    <ion-label>
+                        {{offer.subject}}
+                    </ion-label>
+
+                    <ion-toggle color="verde" (ionChange)="toggleOfferState(offer)" [(ngModel)]="offer.isAssignedToShare"></ion-toggle>
+
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+</ion-content>

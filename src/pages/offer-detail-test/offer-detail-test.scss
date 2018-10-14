@@ -1,0 +1,68 @@
+page-offer-detail-test {
+    .offer-list-card p span {
+        padding-left: 1rem;
+    }
+    .offer-list-prices {
+        margin: 0 auto;        
+        color: #fff;        
+        border-radius: 50%;
+        font-size: 2rem;
+        padding: 25px 0;
+        text-align: center;
+        width: 80px;
+        height: 80px;
+      }
+      .priceFormated {
+          background: #ED81EC;
+      }
+      .specialPriceFormated {
+        background: #FD0000;
+      }
+
+      .offer-list-discount-amount, .offer-list-discount-text {
+          color: #fff;
+          text-align: center;
+         
+      }
+      .offer-list-discount-amount {
+          padding-top: 25px;
+      }
+
+
+    .priceFormated {
+        position: relative;
+    }
+     
+    .priceFormated:before {
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 50%;
+        right: 0;
+        border-top: 2px solid;
+        border-color: red;         
+        -webkit-transform:rotate(-10deg);
+        -moz-transform:rotate(-10deg);
+        -ms-transform:rotate(-10deg);
+        -o-transform:rotate(-10deg);
+        transform:rotate(-10deg);
+    }
+
+    .offer-card-details {
+        width: 100%;
+        margin-left: -10px;
+        position: absolute;
+        bottom: 0;
+        background: rgba(16, 25, 30, 0.9);
+    }
+
+    .offer-card-details-icon-whatsapp {
+       
+    }
+    .offer-card-details-icon-whatsapp .icon{
+        margin-right: 10px;
+        margin-top: -24px;
+    }
+}
+
+

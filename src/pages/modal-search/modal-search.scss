@@ -16,12 +16,13 @@ page-modal-search {
     }
     .listado {
         background: #7C0000;
-        height: 45%;
+        height: 200px;
         overflow-x: scroll;
         overflow-y: scroll;
     }
     .listado .item {
         background: none;
+        height: 56px;
     }
     .listado .item .label {
         color: #fff;

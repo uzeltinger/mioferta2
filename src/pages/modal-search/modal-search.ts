@@ -28,8 +28,12 @@ export class ModalSearchPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalSearchPage');
-    this.getCitiesFiltered();
-    this.getCategoriesFiltered();
+    //this.getCitiesFiltered();
+    //this.getCategoriesFiltered();
+    this.citiesFiltered = [];
+    this.categoriesFiltered = [];
+    this.setCitiesFiltered();
+    this.setCategoriesFiltered();
     this.getCategories();
     this.getCities();
   }
@@ -42,9 +46,8 @@ export class ModalSearchPage {
         this.cities.forEach((valor : any) => {
           console.log('valor.id',valor.city);
           let a = this.citiesFiltered.indexOf(valor.city);
-          if(a!=-1){
-            valor.isAssigned = true;
-          }
+          //if(a!=-1){            valor.isAssigned = true;          }
+          valor.isAssigned = false;
           console.log('a',a);          
         });
         this.showSplash = false;
@@ -61,9 +64,8 @@ export class ModalSearchPage {
         this.categories = data; 
         this.categories.forEach((valor : any) => {
           let a = this.categoriesFiltered.indexOf(valor.id);
-          if(a!=-1){
-            valor.isAssigned = true;
-          }       
+          if(a!=-1){            valor.isAssigned = true;          }    
+          valor.isAssigned = false;
         });
         this.showSplash = false;
       },

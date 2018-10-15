@@ -80,7 +80,9 @@ export class OffersPage {
   getOffers(){
     this.getCitiesFiltered();
     this.getCategoriesFiltered();
-    
+    console.log('this.citiesFiltered',this.citiesFiltered);
+    console.log('this.categoriesFiltered',this.categoriesFiltered);
+
     if(this.citiesFiltered.length > 0 || this.categoriesFiltered.length > 0){
       console.log('filtrosAplicados');
       this.filtrosAplicados = true;
@@ -128,16 +130,21 @@ export class OffersPage {
       }
     ); 
   }
-
+  
   presentModal() {
-    const modal = this.modalCtrl.create(ModalSearchPage);
-    modal.onDidDismiss(data => {
-      console.log(data);
+    if(this.filtrosAplicados){
       this.showSplash = true;
-      this.getOffers();
-    });
-    modal.present();
-    this.showSplash = true;
+      this.limpiarFiltros();    
+    }else{  
+      const modal = this.modalCtrl.create(ModalSearchPage);
+      modal.onDidDismiss(data => {
+        console.log(data);
+        this.showSplash = true;
+        this.getOffers();
+      });
+      modal.present();
+      this.showSplash = true;
+      }
   }
 
   getCitiesFiltered(){
@@ -165,5 +172,22 @@ export class OffersPage {
     alert.present();
   }
 
+
+  limpiarFiltros(){
+    this.citiesFiltered = [];
+    this.categoriesFiltered = [];
+    this.setCitiesFiltered();
+    this.setCategoriesFiltered();
+    this.getOffers();
+  }
+  setCitiesFiltered(){    
+    localStorage.setItem("citiesFiltered", JSON.stringify(this.citiesFiltered))
+    console.log('citiesFiltered',this.citiesFiltered);    
+  }
+
+  setCategoriesFiltered(){    
+    localStorage.setItem("categoriesFiltered", JSON.stringify(this.categoriesFiltered))
+    console.log('categoriesFiltered',this.categoriesFiltered);    
+  }
 
 }

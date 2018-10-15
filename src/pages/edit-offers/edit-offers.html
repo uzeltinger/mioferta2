@@ -57,7 +57,6 @@
 
 <ion-content class="colorRojoOscurobackground" >
     <ion-row class="topEditOffers">        
-        <ion-col col-3><p></p></ion-col>
         <ion-col col-3 text-center>
             <ion-badge class="ion-badge-x2" color="colorAmarillo">{{offersTotal}}</ion-badge>
             <br><small>PRODUCTOS</small>
@@ -65,6 +64,10 @@
         <ion-col col-3 text-center>
             <ion-badge class="ion-badge-x2" color="colorRosa">{{offersActives}}</ion-badge>
             <br><small>ACTIVOS</small>
+        </ion-col>
+        <ion-col col-3 text-center>
+            <ion-badge class="ion-badge-x2" color="verdeDaniel">{{whatsappTotal}}</ion-badge>
+            <br><small>WHATSAPPS</small>
         </ion-col>
         <ion-col col-3 text-center>
             <ion-icon class="icon-share-x3" color="white" name="share" (click)="goShareOffers()"></ion-icon>

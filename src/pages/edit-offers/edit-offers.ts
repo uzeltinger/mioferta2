@@ -10,6 +10,7 @@ import { Toast } from '@ionic-native/toast';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ShareOffersPage } from '../share-offers/share-offers';
 import { ConsultsPage } from '../consults/consults';
+import { AlertController } from 'ionic-angular';
 /**
  * Generated class for the EditOffersPage page.
  *
@@ -23,27 +24,30 @@ import { ConsultsPage } from '../consults/consults';
 })
 export class EditOffersPage {
   offers: any
-  whatsappText:string
-  whatsappImage:string
-  whatsappUrl:string
+  whatsappText: string
+  whatsappImage: string
+  whatsappUrl: string
   showSplash = true;
   isUserLoggedIn: boolean = false;
   userInfo: User = new User;
   company: Company = new Company;
-  pictures_path:string = '';
+  pictures_path: string = '';
   toolbarShow: boolean = false;
   taskCreate: boolean = false;
   taskShare: boolean = false;
   taskDelete: boolean = false;
   taskConsults: boolean = false;
-  shareOffers:any ;
+  shareOffers: any;
   linkToShare: string = 'https://mioferta.com.ar/index.php?option=com_jbusinessdirectory&view=companies&companyId=';
-  offersTotal:number=0;
-  offersActives:number=0;
+  offersTotal: number = 0;
+  offersActives: number = 0;
+  whatsappTotal: number = 0;
+
   constructor(public platform: Platform,
-    public navCtrl: NavController, 
-    public offerService: OfferServiceProvider, 
+    public navCtrl: NavController,
+    public offerService: OfferServiceProvider,
     public navParams: NavParams,
+    private alertController: AlertController,
     public userService: UserServiceProvider,
     private toast: Toast,
     private socialSharing: SocialSharing
@@ -54,131 +58,176 @@ export class EditOffersPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditOffersPage');
-    this.pictures_path = this.offerService.picturesPath; 
-    this.isUserLoggedIn = this.userService.isUserLoggedIn;
-    this.userInfo = this.userService.getUser();    
-    this.company = this.userService.getCompany();   
-    console.log('this.company',this.company);
+    this.pictures_path = this.offerService.picturesPath;
+    //this.isUserLoggedIn = this.userService.isUserLoggedIn;    
+    this.suscribeUserInfo();
+    //this.userInfo = this.userService.getUser();   
+    console.log('this.company', this.company);
     //this.getUserOffers();    
   }
   ionViewWillEnter() {
     console.log('ionViewWillEnter EditOffersPage');
-    this.getUserOffers();
+    if (this.isUserLoggedIn) {
+      this.getUserOffers();
+    }
+
     this.toolbarShow = false;
     this.taskCreate = true;
     this.taskConsults = true;
     this.taskShare = true;
     //setTimeout(() => {    }, 2000);
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     console.log('ionViewDidEnter EditOffersPage');
   }
-  
-  getCompanyOffers(){
-    this.offerService.getCompanyOffers(this.company.id)
-    .subscribe(
-      (data)=> {         
-        this.offers = data; 
-        this.showSplash = false;
-        console.log('data',data) ;
-      },
-      (error)=>{
-        console.log('error',error);
-      this.showSplash = false;
-    }
-    )
-  } 
 
-  getUserOffers(){
-    this.offerService.getUserOffers(this.userInfo.id)
-    .subscribe(
-      (data)=> {
-        this.offerService.setUserOffersToShare(data);
-        this.offerService.setUserOffersCache(data);
-        let offersActives = 0;
-        this.offers = data; 
-        this.offersTotal = this.offers.length;
-        this.offers.forEach(function (value) {    
-          if(value.state == 1){
-            value.isAssigned = true;
-            offersActives++;
-          }
-        }); 
-        this.offersActives = offersActives;       
-        this.showSplash = false;
-        console.log('data',data) ;
-      },
-      (error)=>{
-        console.log('error',error);
-      this.showSplash = false;
+  suscribeUserInfo() {
+    this.userService.suscribeUserInfo()
+      .subscribe(
+        (data) => {
+          setTimeout(() => {
+            console.log('suscribeUserInfo', data);
+            this.checkUserData(data);
+          }, 500);
+        },
+        (error) => {
+          console.log('error', error);
+          this.showSplash = false;
+        }
+      )
+  }
+
+  checkUserData(data) {
+
+    this.company = this.userService.getCompany();
+
+    this.userInfo = data;
+    this.isUserLoggedIn = data.isUserLoggedIn;
+    if (this.isUserLoggedIn) {
+      this.getCompanyWhatsappTotal(this.userInfo.id);
+      this.getUserOffers();
     }
-    )
-  } 
-  toggleOfferState(offer){
-    console.log('toggleOfferState offer : ',offer);
+  }
+
+  getCompanyWhatsappTotal(id) {
+    this.offerService.getCompanyWhatsappTotal(id)
+      .subscribe(
+        (data) => {
+          let whatsappTotal: any = data;
+          this.whatsappTotal = whatsappTotal.total;
+          console.log('data', data);
+        },
+        (error) => {
+          console.log('error', error);
+        }
+      )
+  }
+
+  getCompanyOffers() {
+    this.offerService.getCompanyOffers(this.company.id)
+      .subscribe(
+        (data) => {
+          this.offers = data;
+          this.showSplash = false;
+          console.log('data', data);
+        },
+        (error) => {
+          console.log('error', error);
+          this.showSplash = false;
+        }
+      )
+  }
+
+  getUserOffers() {
+    this.offerService.getUserOffers(this.userInfo.id)
+      .subscribe(
+        (data) => {
+          this.offerService.setUserOffersToShare(data);
+          this.offerService.setUserOffersCache(data);
+          let offersActives = 0;
+          this.offers = data;
+          this.offersTotal = this.offers.length;
+          this.offers.forEach(function (value) {
+            if (value.state == 1) {
+              value.isAssigned = true;
+              offersActives++;
+            }
+          });
+          this.offersActives = offersActives;
+          this.showSplash = false;
+          console.log('data', data);
+        },
+        (error) => {
+          console.log('error', error);
+          this.showSplash = false;
+        }
+      )
+  }
+  toggleOfferState(offer) {
+    console.log('toggleOfferState offer : ', offer);
     let newState = 1;
-    if(offer.state == 1){
+    if (offer.state == 1) {
       newState = 2;
       this.offersActives--;
-    }else{
+    } else {
       this.offersActives++;
     }
     offer.state = newState;
     this.showSplash = true;
     this.offerService.setOfferState(offer)
-    .subscribe(
-      dataOfferState => {
-        console.log('dataOfferState: ',dataOfferState);
-        if(dataOfferState.post.state==2){
-          this.showToast('Oferta ocultada!');   
-        }else{
-          this.showToast('Oferta publicada!');   
+      .subscribe(
+        dataOfferState => {
+          console.log('dataOfferState: ', dataOfferState);
+          if (dataOfferState.post.state == 2) {
+            this.showToast('Oferta ocultada!');
+          } else {
+            this.showToast('Oferta publicada!');
+          }
+
+          this.offerService.setUserOffersToShare(this.offers);
+
+          this.showSplash = false;
+        },
+        error => {
+          this.showSplash = false;
+          this.showToast('Error: ' + error);
         }
-        
-        this.offerService.setUserOffersToShare(this.offers);         
-        
-        this.showSplash = false;   
-      },
-      error => {
-        this.showSplash = false;
-        this.showToast('Error: ' + error);          
-      }
-    );  
+      );
   }
 
-  addNewOffer(){
-    let newOffer: object = {'id':'0'};    
-    console.log('newOffer',newOffer);
+  addNewOffer() {
+    let newOffer: object = { 'id': '0' };
+    console.log('newOffer', newOffer);
     this.navCtrl.push(EditOfferPage, {
-          offer: newOffer
-        });
+      offer: newOffer
+    });
   }
-  navToOfferPage(event, offer){
+  navToOfferPage(event, offer) {
     this.navCtrl.push(OfferPage, {
       offer: offer
     });
   }
-  increaseWhatsappCount(offer){
-    
+  increaseWhatsappCount(offer) {
+
   }
 
-  toolbarToggle(){
+  toolbarToggle() {
     this.toolbarShow = this.toolbarShow ? false : true;
   }
 
-  editOffer(event, offer){
+  editOffer(event, offer) {
     this.toolbarToggle();
     this.navCtrl.push(EditOfferPage, {
       offer: offer
     });
   }
-/*
-  sendOffersList(){
-    //this.toolbarToggle();    
-    this.socialSharing.shareViaWhatsApp('Listado de ofertas', '', this.linkToShare+this.company.id)
-  }
-*/
-  itemsSelectedShare(offerToShare){
+  /*
+    sendOffersList(){
+      //this.toolbarToggle();    
+      this.socialSharing.shareViaWhatsApp('Listado de ofertas', '', this.linkToShare+this.company.id)
+    }
+  */
+  itemsSelectedShare(offerToShare) {
     //this.toolbarToggle();
     //this.shareOffers  = Object.assign([], this.offers);    
     /*this.shareOffers.forEach(function (value) {
@@ -190,52 +239,62 @@ export class EditOffersPage {
       }      
     });*/
     //for (let i = 0; i < this.shareOffers.length; i++) {
-      //console.log(this.shareOffers[i]);
-      //let offerToShare = this.shareOffers[i];
-      
-      if(offerToShare){
-        console.log('share',offerToShare);
-        this.whatsappText = offerToShare.subject+"\r\n"+offerToShare.description+"\r\n"+offerToShare.specialPriceFormated;
-        this.whatsappImage = this.pictures_path + offerToShare.picture_path;
-        this.whatsappUrl = "\r\n" + 'https://mioferta.com.ar/offer/'+offerToShare.id;
-        //this.whatsappText = window.encodeURIComponent(this.whatsappText);
-        //msg = msg + linkToShare;
+    //console.log(this.shareOffers[i]);
+    //let offerToShare = this.shareOffers[i];
+
+    if (offerToShare) {
+      console.log('share', offerToShare);
+      this.whatsappText = offerToShare.subject + "\r\n" + offerToShare.description + "\r\n" + offerToShare.specialPriceFormated;
+      this.whatsappImage = this.pictures_path + offerToShare.picture_path;
+      this.whatsappUrl = "\r\n" + 'https://mioferta.com.ar/offer/' + offerToShare.id;
+      //this.whatsappText = window.encodeURIComponent(this.whatsappText);
+      //msg = msg + linkToShare;
       //}  
     }
-    
-    
-    console.log('whatsappText',this.whatsappText);
-    console.log('whatsappImage',this.whatsappImage);
-    console.log('whatsappUrl',this.whatsappUrl);
+
+
+    console.log('whatsappText', this.whatsappText);
+    console.log('whatsappImage', this.whatsappImage);
+    console.log('whatsappUrl', this.whatsappUrl);
 
 
     this.socialSharing.shareViaWhatsApp(this.whatsappText, this.whatsappImage, this.whatsappUrl)
-/*
-    // Check if sharing via email is supported
-    this.socialSharing.canShareViaEmail().then(() => {
-      // Sharing via email is possible
-      console.log('canShareViaEmail ssii');
-        // Share via email
-        this.socialSharing.shareViaEmail(this.whatsappText, 'Compartiendo info', ['fabiouz@gmail.com']).then(() => {
-          // Success!
-          console.log('canShareViaEmail Success');
+    /*
+        // Check if sharing via email is supported
+        this.socialSharing.canShareViaEmail().then(() => {
+          // Sharing via email is possible
+          console.log('canShareViaEmail ssii');
+            // Share via email
+            this.socialSharing.shareViaEmail(this.whatsappText, 'Compartiendo info', ['fabiouz@gmail.com']).then(() => {
+              // Success!
+              console.log('canShareViaEmail Success');
+            }).catch(() => {
+              // Error!
+            });
         }).catch(() => {
-          // Error!
+          // Sharing via email is not possible
+          console.log('canShareViaEmail Sharing via email is not possible');
         });
-    }).catch(() => {
-      // Sharing via email is not possible
-      console.log('canShareViaEmail Sharing via email is not possible');
-    });
-*/
+    */
   }
 
-  goConsultsPage(){
+  goConsultsPage() {
     console.log('goConsultsPage');
     this.navCtrl.push(ConsultsPage);
   }
 
-  goShareOffers(){
-    this.navCtrl.push(ShareOffersPage);
+  goShareOffers() {
+
+    if (this.offersTotal > 20) {
+      if (this.offersActives > 20) {
+        this.navCtrl.push(ShareOffersPage);
+      } else {
+        this.showAlert('Debes tener al menos 20 ofertas publicadas para poder compartirlas por whatsapp.', '');
+      }
+    } else {
+      this.showAlert('Debes tener al menos 20 ofertas publicadas para poder compartirlas por whatsapp.', '');
+    }
+
   }
 
   goNewOfferPage() {
@@ -246,26 +305,26 @@ export class EditOffersPage {
       offer: newOffer
     });
   }
-  deleteOffer(event,offer){
-    this.showSplash = true;    
+  deleteOffer(event, offer) {
+    this.showSplash = true;
     this.offerService.deleteOffer(offer)
-    .subscribe(
-      offerDeletedData => {
-        console.log('offerDeletedData: ',offerDeletedData);    
-          
-        this.showToast('Oferta eliminada!');   
-        this.getUserOffers();
-         
-        //this.navCtrl.setRoot(ProfilePage);  
-        //this.navCtrl.push(EditOffersPage);
-      },
-      error => {
-        //this.errorMessage = <any>error;
-        this.showSplash = false;
-        this.showToast('Error: ' + error);     
-        //console.log('error: ',error);          
-      }
-    );  
+      .subscribe(
+        offerDeletedData => {
+          console.log('offerDeletedData: ', offerDeletedData);
+
+          this.showToast('Oferta eliminada!');
+          this.getUserOffers();
+
+          //this.navCtrl.setRoot(ProfilePage);  
+          //this.navCtrl.push(EditOffersPage);
+        },
+        error => {
+          //this.errorMessage = <any>error;
+          this.showSplash = false;
+          this.showToast('Error: ' + error);
+          //console.log('error: ',error);          
+        }
+      );
   }
 
   showToast(text: string, duration: string = '3000', position: string = 'bottom') {
@@ -275,9 +334,18 @@ export class EditOffersPage {
           console.log('line: 109  toast this.userInfo.first_name ', this.userInfo.first_name);
         }
       );
-    }else{
+    } else {
       console.log('showToast ', text);
     }
+  }
+
+  showAlert(title_: string, subTitle_: string) {
+    const alert = this.alertController.create({
+      title: title_,
+      subTitle: subTitle_,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }

@@ -21,18 +21,18 @@
 
 <ion-content class="colorRojoOscurobackground" >
   <ion-row class="topEditOffers">        
-      <ion-col col-3><p></p></ion-col>
-      <ion-col col-3 text-center>
+      <ion-col col-4 text-center>
           <ion-badge class="ion-badge-x2" color="colorAmarillo">{{companiesTotal}}</ion-badge>
           <br><small>EMPRESAS</small>
       </ion-col>
-      <ion-col col-3 text-center>
+      <ion-col col-4 text-center>
           <ion-badge class="ion-badge-x2" color="colorRosa">{{companiesActives}}</ion-badge>
           <br><small>ACTIVAS</small>
       </ion-col>
-      <ion-col col-3 text-center>
-          
-      </ion-col>
+      <ion-col col-4 text-center>
+          <ion-badge class="ion-badge-x2" color="verdeDaniel">{{companiesWhatsappTotal}}</ion-badge>
+          <br><small>WHATSAPPS</small>
+      </ion-col>          
   </ion-row>    
   <ion-card color="colorRojoOscuro" *ngFor="let company of companies">
       <ion-row class="item-renglon">

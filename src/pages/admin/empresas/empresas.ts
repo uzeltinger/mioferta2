@@ -19,7 +19,7 @@ export class AdminEmpresasPage {
   showSplash = true;
   companiesTotal:number=0;
   companiesActives:number=0;
-
+  companiesWhatsappTotal:number=0;
   constructor(
     public platform: Platform,
     public navCtrl: NavController, 
@@ -32,11 +32,12 @@ export class AdminEmpresasPage {
     console.log('ionViewDidLoad AdminEmpresasPage');
     this.showSplash = true;
     this.companies = this.getCompanies();   
+    this.getAdminWhatsappTotal();
     console.log('this.companies',this.companies);
   }
 
   getCompanies(){
-    this.adminService.getCompanies()
+    this.adminService.getAdminCompanies()
     .subscribe(
       (data)=> {         
         this.companies = data; 
@@ -62,7 +63,19 @@ export class AdminEmpresasPage {
     )
   }
 
-
+  getAdminWhatsappTotal(){
+    this.adminService.getAdminWhatsappTotal()
+    .subscribe(
+      (data)=> {
+        let whatsappTotal: any = data;     
+        this.companiesWhatsappTotal = whatsappTotal.total;
+        console.log('data',data) ;
+      },
+      (error)=>{
+        console.log('error',error);
+    }
+    )
+  }
   
 
   toggleCompanyState(company){

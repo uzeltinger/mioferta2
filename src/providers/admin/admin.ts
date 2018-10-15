@@ -29,13 +29,16 @@ export class AdminProvider {
       );
   }
 
-  getCompanies() {
+  getAdminCompanies() {
     let url = '';
-    url = this.apiUrl + '/v1/admin/getCompanies';
+    url = this.apiUrl + '/v1/admin/getAdminCompanies';
     return this.httpClient.get(url);
   }
 
-
+  getAdminWhatsappTotal(){
+    let url = this.apiUrl + '/v1/admin/getAdminWhatsappTotal/';
+    return this.httpClient.get(url);
+  }
 
   getHeader() {
     console.log('UserServiceProvider : getHeader : line 130 this.user.token : ', this.user.token);

@@ -30,6 +30,10 @@ export class OfferServiceProvider {
   constructor(public httpClient: HttpClient, public storage: Storage) {
     console.log('Hello OfferServiceProvider Provider');
   }
+  getCompanyWhatsappTotal(id: number){
+    let url = this.apiUrl + '/v1/company/getCompanyWhatsappTotal/' + id;
+    return this.httpClient.get(url);
+  }
   getCompanyOffers(id: number) {
     let url = this.apiUrl + '/v1/company/getCompanyOffers/' + id;
     return this.httpClient.get(url);

@@ -46,41 +46,69 @@ export class ProfilePage {
     private push: Push) { }
 
   ionViewDidLoad() {
-    this.suscribeUserInfo();
-    this.userInfo = this.userService.getUser();
-    this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
-    this.company = this.userService.getCompany();
-    setTimeout(() => {
-      this.formatCompanyAddress();
-    }, 1000);
-
+    this.showSplash = true;
+    this.suscribeUserInfo();    
+    //this.userInfo = this.userService.getUser();
+    //this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
+    //this.company = this.userService.getCompany();
     let date = new Date();
     var lastDay = new Date(date.getFullYear(), date.getMonth(), 0);
     var toDay = new Date();
-    console.log('lastDay', lastDay);
-    console.log('toDay', toDay);
     var options = {
       year: "numeric", month: "short", day: "numeric"
     };
     console.log('toLocaleDateString', date.toLocaleDateString("es-ar", options));
 
   }
+  suscribeGetCompany() {
+    this.userService.suscribeGetCompany()
+      .subscribe(
+        (data) => {
+          setTimeout(() => {
+            console.log('suscribeGetCompany', data);
+            this.company = data;
+            this.showSplash = false;
+          }, 100);
+        },
+        (error) => {
+          console.log('error', error);
+          this.showSplash = false;
+        }
+      )
+  }
   suscribeUserInfo() {
     this.userService.suscribeUserInfo()
       .subscribe(
         (data) => {
           setTimeout(() => {
-            console.log('data', data);
+            console.log('suscribeUserInfo', data);
             this.checkUserData(data);
-          }, 1000);
+          }, 500);
         },
         (error) => {
           console.log('error', error);
+          this.showSplash = false;
         }
       )
   }
   checkUserData(data) {
-    this.pushNotifications(data);
+    this.userInfo = data;    
+    this.isUserLoggedIn = data.isUserLoggedIn;    
+    if(!this.isUserLoggedIn){
+      
+      this.showSplash = false;
+  //    this.userService.logoutUser(this.userInfo);
+    }else{
+      this.suscribeGetCompany();
+      setTimeout(() => {
+        this.formatCompanyAddress();
+      }, 100);
+    }
+    if (this.platform.is('android')) {
+      if(this.isUserLoggedIn){
+        this.pushNotifications(data);
+      }
+    }
   }
 
   formatCompanyAddress() {

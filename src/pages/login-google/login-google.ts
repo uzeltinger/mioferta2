@@ -135,6 +135,7 @@ export class LoginGooglePage {
       .then(res => {
         console.log('LoginGooglePage logout : res : line 134', res);        
         this.isLoggedIn = false;
+        this.userService.logoutUser(this.userInfo);
       })
       .catch(err => console.error(err));
   }

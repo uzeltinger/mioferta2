@@ -38,7 +38,7 @@
       <ion-row class="item-renglon">
           
             <ion-item>
-                    <ion-label>{{company.name}}</ion-label>
+                    <ion-label (click)="goCompanyDetail($event,company)">{{company.name}}</ion-label>
                     <ion-toggle color="verde" (ionChange)="toggleCompanyState(company)" [(ngModel)]="company.isAssigned"></ion-toggle>
                   </ion-item>
 

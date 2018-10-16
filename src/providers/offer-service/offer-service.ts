@@ -39,7 +39,7 @@ export class OfferServiceProvider {
     return this.httpClient.get(url);
   }
   getUserOffers(id: number) {
-    let url = this.apiUrl + '/v1/user/getUserOffers/' + id;
+    let url = this.apiUrl + '/v1/user/getUserOffers/' + id;    
     return this.httpClient.get(url);
   }  
   

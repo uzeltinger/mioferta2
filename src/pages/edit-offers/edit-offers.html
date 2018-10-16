@@ -56,7 +56,8 @@
 -->
 
 <ion-content class="colorRojoOscurobackground" >
-    <ion-row class="topEditOffers">        
+    <ion-row class="topEditOffers">
+            <ion-col col-1></ion-col>
         <ion-col col-3 text-center>
             <ion-badge class="ion-badge-x2" color="colorAmarillo">{{offersTotal}}</ion-badge>
             <br><small>PRODUCTOS</small>
@@ -65,11 +66,11 @@
             <ion-badge class="ion-badge-x2" color="colorRosa">{{offersActives}}</ion-badge>
             <br><small>ACTIVOS</small>
         </ion-col>
-        <ion-col col-3 text-center>
+        <ion-col col-3 text-center (click)="goConsultsPage()">
             <ion-badge class="ion-badge-x2" color="verdeDaniel">{{whatsappTotal}}</ion-badge>
             <br><small>WHATSAPPS</small>
         </ion-col>
-        <ion-col col-3 text-center>
+        <ion-col col-2 text-center>
             <ion-icon class="icon-share-x3" color="white" name="share" (click)="goShareOffers()"></ion-icon>
         </ion-col>
     </ion-row>    
@@ -81,7 +82,7 @@
                 </ion-avatar>
             </ion-col>
             <ion-col col-9>
-                <h2 item-start>{{offer.subject}}</h2>
+                <h2 item-start class="text-uppercase">{{offer.subject}}</h2>
                 <ion-row>
                     <ion-col>
                         <button color="white" clear ion-button icon-only (click)="editOffer($event, offer)">

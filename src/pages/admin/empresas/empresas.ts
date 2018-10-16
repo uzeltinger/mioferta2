@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { AdminProvider } from '../../../providers/admin/admin';
 import { Toast } from '@ionic-native/toast';
+import { AdminEmpresaPage } from '../empresa/empresa';
 
 /**
  * Generated class for the AdminEmpresasPage page.
@@ -31,12 +32,12 @@ export class AdminEmpresasPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminEmpresasPage');
     this.showSplash = true;
-    this.companies = this.getCompanies();   
+    this.companies = this.getAdminCompanies();   
     this.getAdminWhatsappTotal();
     console.log('this.companies',this.companies);
   }
 
-  getCompanies(){
+  getAdminCompanies(){
     this.adminService.getAdminCompanies()
     .subscribe(
       (data)=> {         
@@ -120,5 +121,13 @@ export class AdminEmpresasPage {
       console.log('showToast ', text);
     }
   }
+
+
+  goCompanyDetail(event, company) {
+    this.navCtrl.push(AdminEmpresaPage, {
+      company: company
+    });
+  }
+
 
 }

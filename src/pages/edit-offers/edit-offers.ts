@@ -137,15 +137,18 @@ export class EditOffersPage {
         }
       )
   }
-
+  orderOffers(data){
+    return data;
+  }
   getUserOffers() {
     this.offerService.getUserOffers(this.userInfo.id)
       .subscribe(
         (data) => {
+          this.offers = this.orderOffers(data);
           this.offerService.setUserOffersToShare(data);
           this.offerService.setUserOffersCache(data);
           let offersActives = 0;
-          this.offers = data;
+          
           this.offersTotal = this.offers.length;
           this.offers.forEach(function (value) {
             if (value.state == 1) {

@@ -20,6 +20,11 @@ export class AdminProvider {
     console.log('Hello AdminProvider Provider');
   }
 
+  getUserByCompany(id: number){
+    let url = this.apiUrl + '/v1/admin/getUserByCompany/' + id;
+    return this.httpClient.get(url);
+  }
+  
   setCompanyState(company: any): Observable<any> {
     console.log('company', company);
     this.httpOptions = this.getHeader();

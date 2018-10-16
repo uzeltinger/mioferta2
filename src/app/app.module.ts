@@ -21,6 +21,7 @@ import { Push } from '@ionic-native/push';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AdminEmpresasPage } from '../pages/admin/empresas/empresas';
+import { AdminEmpresaPage } from '../pages/admin/empresa/empresa';
 import { ConsultsPage } from '../pages/consults/consults';
 import { OffersPage } from '../pages/offers/offers';
 import { OfferPage } from '../pages/offer/offer';
@@ -58,7 +59,7 @@ import { AdminProvider } from '../providers/admin/admin';
     LoginPage,LoginGooglePage,LoginFacebookPage,AboutPage,
     ProfilePage,CategoriesPage,CategoryPage,EditOffersPage,EditOfferPage,
     ProfileAddressPage, ProfileAutocompleteAddressPage, OfferDetailTestPage, 
-    ModalSearchPage, ShareOffersPage, ConsultsPage,AdminEmpresasPage
+    ModalSearchPage, ShareOffersPage, ConsultsPage,AdminEmpresasPage,AdminEmpresaPage
     //,    OfferAddressMapModalPage
   ],
   imports: [
@@ -80,7 +81,7 @@ import { AdminProvider } from '../providers/admin/admin';
     LoginPage,LoginGooglePage,LoginFacebookPage,AboutPage,
     ProfilePage,CategoriesPage,CategoryPage,EditOffersPage,EditOfferPage,
     ProfileAddressPage, ProfileAutocompleteAddressPage, OfferDetailTestPage, ModalSearchPage,
-    ShareOffersPage, ConsultsPage, AdminEmpresasPage
+    ShareOffersPage, ConsultsPage, AdminEmpresasPage,AdminEmpresaPage
     //,    OfferAddressMapModalPage
   ],
   providers: [

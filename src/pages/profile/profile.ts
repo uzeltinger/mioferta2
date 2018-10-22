@@ -68,6 +68,9 @@ export class ProfilePage {
             console.log('suscribeGetCompany', data);
             this.company = data;
             this.showSplash = false;
+            setTimeout(() => {
+              this.formatCompanyAddress(this.company);
+            }, 100);
           }, 100);
         },
         (error) => {
@@ -100,9 +103,7 @@ export class ProfilePage {
   //    this.userService.logoutUser(this.userInfo);
     }else{
       this.suscribeGetCompany();
-      setTimeout(() => {
-        this.formatCompanyAddress();
-      }, 100);
+      
     }
     if (this.platform.is('android')) {
       if(this.isUserLoggedIn){
@@ -111,12 +112,13 @@ export class ProfilePage {
     }
   }
 
-  formatCompanyAddress() {
-    let addressFormated = this.company.address + ' ' + this.company.street_number;
-    addressFormated = addressFormated + ', ' + this.company.city;
-    addressFormated = addressFormated + ', ' + this.company.county;
+  formatCompanyAddress(company) {
+    let addressFormated = company.address + ' ' + company.street_number;
+    addressFormated = addressFormated + ', ' + company.city;
+    addressFormated = addressFormated + ', ' + company.county;
     addressFormated = addressFormated + ', Argentina';
     this.profileAddress.place = addressFormated;
+    console.log('formatCompanyAddress',addressFormated);
   }
 
   logout() {

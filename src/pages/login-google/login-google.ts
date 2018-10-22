@@ -68,7 +68,7 @@ export class LoginGooglePage {
             }else{
               console.log('userRegisteredData: ',userRegisteredData);  
               this.userInfo = userRegisteredData.userData;
-              //this.goProfilePage();
+              
               this.showSplash = false;
               this.userService.setUserToken(userRegisteredData.userData.token);
               this.goProfilePage();
@@ -103,11 +103,11 @@ export class LoginGooglePage {
           userRegisteredData => {
             if(userRegisteredData.error){
               console.log('LoginGooglePage setUserGoogle userRegisteredData.error 119: ',userRegisteredData.error);
-              this.showSplash = false;
+              this.showSplash = false; 
             }else{
               console.log('LoginGooglePage setUserGoogle userRegisteredData: 122',userRegisteredData);  
               //this.userInfo = userRegisteredData.userData;
-              //this.goProfilePage();
+              
               this.userService.setUserToken(userRegisteredData.userData.token);
               this.showSplash = false;
               this.goProfilePage();

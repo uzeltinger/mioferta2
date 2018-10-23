@@ -69,7 +69,7 @@ export class LoginGooglePage {
               console.log('userRegisteredData: ',userRegisteredData);  
               this.userInfo = userRegisteredData.userData;
               
-              this.showSplash = false;
+          //    this.showSplash = false;
               this.userService.setUserToken(userRegisteredData.userData.token);
               this.goProfilePage();
             }
@@ -109,7 +109,7 @@ export class LoginGooglePage {
               //this.userInfo = userRegisteredData.userData;
               
               this.userService.setUserToken(userRegisteredData.userData.token);
-              this.showSplash = false;
+        //      this.showSplash = false;
               this.goProfilePage();
             }
           },

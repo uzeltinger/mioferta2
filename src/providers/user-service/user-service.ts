@@ -5,6 +5,7 @@ import { Company } from '../../models/company';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
 import { catchError, tap } from 'rxjs/operators';
+import { Events } from 'ionic-angular';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -14,10 +15,36 @@ import { catchError, tap } from 'rxjs/operators';
 */
 @Injectable()
 export class UserServiceProvider {
-
-  user: User = new User;
-  company: Company = new Company;
+  number: number = 0;
+  user: User = {
+    "isUserLoggedIn": false,
+    "id": null,
+    "name": "",
+    "facebook_id": "",
+    "google_id": "",
+    "email": "",
+    "first_name": "",
+    "last_name": "",
+    "picture": "",
+    "authToken": "",
+    "token": ""
+  }
+  company: Company = {
+    "id": null,
+    "name": "",
+    "whatsapp": "",
+    "address": "",
+    "street_number": "",
+    "city": "",
+    "county": "",
+    "postal_code": "",
+    "province": "",
+    "latitude": "",
+    "longitude": "",
+    "place": ""
+  }
   isUserLoggedIn: boolean = false;
+  isAdmin: boolean = false;
   apiUrl: string = 'https://mioferta.com.ar/api/v1/';
   //apiUrl: string = 'http://mioferta.local/api/v1/';
   httpOptions: any = {};
@@ -26,7 +53,8 @@ export class UserServiceProvider {
     headers: new HttpHeaders().set('Authorization', '')
   };
 */
-  constructor(public httpClient: HttpClient, public storage: Storage) {
+  constructor(public httpClient: HttpClient, public storage: Storage,
+    private events: Events) {
     //console.log('Hello UserServiceProvider Provider');
   }
 
@@ -45,7 +73,7 @@ export class UserServiceProvider {
         tap(// Log the result or error
           data => {
             this.storeUserData(data);
-            //console.log("data", data);
+            console.log("data", data);
             //console.log("company", company);                               
           },
           error => {
@@ -67,7 +95,7 @@ export class UserServiceProvider {
         tap(// Log the result or error
           data => {
             this.storeUserData(data);
-            //console.log("data", data);
+            console.log("data", data);
             //console.log("company", company);                               
           },
           error => {
@@ -83,6 +111,48 @@ export class UserServiceProvider {
 
   storeUserData(data: any) {
     console.log("storeUserData", data);
+    this.user.isUserLoggedIn = true;
+    this.user.id = data.userData.id;
+    this.user.name = data.userData.first_name;
+    this.user.facebook_id = data.userData.facebook_id;
+    this.user.google_id = data.userData.google_id;
+    this.user.email = data.userData.email;
+    this.user.first_name = data.userData.first_name;
+    this.user.last_name = data.userData.last_name;
+    this.user.picture = data.userData.picture;
+    this.user.authToken = "";
+    this.user.token = "";
+
+    this.company.id = data.userData.company_id;
+    this.company.name = data.userData.company_name;
+    this.company.whatsapp = data.userData.company_whatsapp;
+    this.company.address = data.userData.company_address;
+    this.company.street_number = data.userData.company_street_number;
+    this.company.city = data.userData.company_city;
+    this.company.county = data.userData.company_county;
+    this.company.postal_code = "";
+    this.company.province = data.userData.company_province;
+    this.company.latitude = data.userData.company_latitude;
+    this.company.longitude = data.userData.company_longitude;
+    let addressFormated = this.company.address + ' ' + this.company.street_number;
+    addressFormated = addressFormated + ', ' + this.company.city;
+    addressFormated = addressFormated + ', ' + this.company.county;
+    addressFormated = addressFormated + ', Argentina';    
+    this.company.place = addressFormated;
+    
+    if (this.user.email == "fabiouz@gmail.com"
+    || this.user.email == "riverasdaniel@gmail.com") {
+      console.log('this.user.email ', this.user.email);
+      this.isAdmin= true;
+      this.events.publish("userIsAdmin");
+    }else{
+      this.events.publish("userIsNotAdmin");
+      console.log('this.user.email NO');
+      this.isAdmin= false;
+    }
+    console.log('this.isAdmin',this.isAdmin);
+    
+    /*
     this.storage.set('userLogued', true);
     this.storage.set('facebook_id', data.userData.facebook_id);
     this.storage.set('google_id', data.userData.google_id);
@@ -102,6 +172,13 @@ export class UserServiceProvider {
     this.storage.set('company_province', data.userData.company_province);
     this.storage.set('company_latitude', data.userData.company_latitude);
     this.storage.set('company_longitude', data.userData.company_longitude);
+*/
+  }
+  suscribeIsAdmin(): Observable<any> {
+    return new Observable((observer) => {
+      return observer.next(this.isAdmin);
+    });
+
   }
 
   suscribeGetCompany(): Observable<any> {
@@ -110,6 +187,7 @@ export class UserServiceProvider {
 
       this.isUserLoggedIn = userLogued;
       if (userLogued) {
+
         this.storage.get('company_id').then((company_id) => {
           //console.log('line 54 : Your token is', token);
           this.company.id = company_id;
@@ -141,67 +219,46 @@ export class UserServiceProvider {
         });
         this.storage.get('company_longitude').then((company_longitude) => {
           this.company.longitude = company_longitude;
+          let addressFormated = this.company.address + ' ' + this.company.street_number;
+          addressFormated = addressFormated + ', ' + this.company.city;
+          addressFormated = addressFormated + ', ' + this.company.county;
+          addressFormated = addressFormated + ', Argentina';
+          //this.profileAddress.place = addressFormated;    
+          this.company.place = addressFormated;
         });
       }
     });
-    console.log('line 147 : suscribeGetCompany is this.company ', this.company);
+
+    console.log('user-service line 153 : suscribeGetCompany is this.company ', this.company);
+
     return new Observable((observer) => {
       return observer.next(this.company);
     });
+
   }
 
-  getCompany() {
-    this.storage.get('userLogued').then((userLogued) => {
+  getUser() {    
+    console.log('UserServiceProvider : getUser : line 220 : this.user ', this.user);
+    return this.user;
+  }
 
-      this.isUserLoggedIn = userLogued;
-      if (userLogued) {
-        this.storage.get('company_id').then((company_id) => {
-          //console.log('line 54 : Your token is', token);
-          this.company.id = company_id;
-        });
-        this.storage.get('company_name').then((company_name) => {
-          //console.log('line 54 : Your token is', token);
-          this.company.name = company_name;
-        });
-        this.storage.get('company_whatsapp').then((company_whatsapp) => {
-          this.company.whatsapp = company_whatsapp;
-        });
-        this.storage.get('company_address').then((company_address) => {
-          this.company.address = company_address;
-        });
-        this.storage.get('company_street_number').then((company_street_number) => {
-          this.company.street_number = company_street_number;
-        });
-        this.storage.get('company_city').then((company_city) => {
-          this.company.city = company_city;
-        });
-        this.storage.get('company_county').then((company_county) => {
-          this.company.county = company_county;
-        });
-        this.storage.get('company_province').then((company_province) => {
-          this.company.province = company_province;
-        });
-        this.storage.get('company_latitude').then((company_latitude) => {
-          this.company.latitude = company_latitude;
-        });
-        this.storage.get('company_longitude').then((company_longitude) => {
-          this.company.longitude = company_longitude;
-        });
-      }
-    });
-    console.log('line 146 : getCompany is this.company ', this.company);
-    //console.log('UserServiceProvider : getcompany : line 77 : this.company ', this.company);
-    //setInterval(() => { return this.company }, 1000)
+  getCompany() {    
+    console.log('UserServiceProvider : getCompany line 225 this.company ', this.company);
     return this.company;
   }
 
-
   suscribeUserInfo(): Observable<any> {
+    return new Observable((observer) => {
+      return observer.next(this.user);
+    });
+  }
+  
+  suscribeUserInfo22222(): Observable<any> {
     this.storage.get('userLogued').then((userLogued) => {
-      console.log('user-service suscribeUserInfo line 201 : userLogued is ', userLogued);
-      this.isUserLoggedIn = userLogued;
+      console.log('user-service suscribeUserInfo line 208 : userLogued is ', userLogued);
+      //this.isUserLoggedIn = userLogued;
       if (userLogued) {
-        this.user.isUserLoggedIn = userLogued;
+        console.log('user-service suscribeUserInfo line 211 : userLogued is ', userLogued);
         this.storage.get('user_id').then((user_id) => {
           this.user.id = user_id;
         });
@@ -232,6 +289,7 @@ export class UserServiceProvider {
         this.storage.get('company_id').then((company_id) => {
           this.company.id = company_id;
         });
+        this.user.isUserLoggedIn = userLogued;
       }
     });
 
@@ -240,78 +298,7 @@ export class UserServiceProvider {
     });
 
 
-  }
-
-
-  getUser() {
-    this.storage.get('userLogued').then((userLogued) => {
-      //console.log('line 49 : userLogued is ', userLogued);
-      this.isUserLoggedIn = userLogued;
-      if (userLogued) {
-        this.user.isUserLoggedIn = userLogued;
-        this.storage.get('user_id').then((user_id) => {
-          this.user.id = user_id;
-        });
-        this.storage.get('name').then((name) => {
-          this.user.name = name;
-        });
-        this.storage.get('facebook_id').then((facebook_id) => {
-          this.user.facebook_id = facebook_id;
-        });
-        this.storage.get('google_id').then((google_id) => {
-          this.user.google_id = google_id;
-        });
-        this.storage.get('email').then((email) => {
-          this.user.email = email;
-        });
-        this.storage.get('first_name').then((first_name) => {
-          this.user.first_name = first_name;
-        });
-        this.storage.get('last_name').then((last_name) => {
-          this.user.last_name = last_name;
-        });
-        this.storage.get('picture').then((picture) => {
-          this.user.picture = picture;
-        });
-        this.storage.get('token').then((token) => {
-          this.user.token = token;
-        });
-        this.storage.get('company_id').then((company_id) => {
-          this.company.id = company_id;
-        });
-        /*this.storage.get('company_name').then((company_name) => {
-          this.company.name = company_name;
-        });
-        this.storage.get('company_whatsapp').then((company_whatsapp) => {
-          this.company.whatsapp = company_whatsapp;
-        });  
-        this.storage.get('company_address').then((company_address) => {
-          this.company.address = company_address;
-        });
-        this.storage.get('company_street_number').then((company_street_number) => {
-          this.company.street_number = company_street_number;
-        });
-        this.storage.get('company_city').then((company_city) => {
-          this.company.city = company_city;
-        });
-        this.storage.get('company_county').then((company_county) => {
-          this.company.county = company_county;
-        });
-        this.storage.get('company_province').then((company_province) => {
-          this.company.province = company_province;
-        });
-        this.storage.get('company_latitude').then((company_latitude) => {
-          this.company.latitude = company_latitude;
-        });
-        this.storage.get('company_longitude').then((company_longitude) => {
-          this.company.longitude = company_longitude;
-        });       */
-
-      }
-    });
-    //console.log('UserServiceProvider : getUser : line 77 : this.user ', this.user);
-    return this.user;
-  }
+  }  
 
   logoutUser(user: User) {
     console.log('UserServiceProvider : logoutUser : line 317', false);
@@ -336,6 +323,8 @@ export class UserServiceProvider {
     this.storage.set('company_longitude', null);
     this.isUserLoggedIn = false;
     this.user.isUserLoggedIn = false;
+    this.events.publish("userIsNotAdmin");
+    this.events.publish("userLogout");
   }
 
   storeCompanyData(data: any) {

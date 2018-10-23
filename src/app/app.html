@@ -8,13 +8,17 @@
      </div>
      
      <div class="user-first_name">{{userInfo.first_name}}</div>
-    </div> 
+    </div>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           <ion-icon item-left name="{{p.icon}}"></ion-icon>
         {{p.title}}
       </button>
-    </ion-list>
+      <button *ngIf="isAdmin" menuClose ion-item (click)="openPage(adminPage)">
+        <ion-icon item-left name="{{adminPage.icon}}"></ion-icon>
+      {{adminPage.title}}
+    </button>
+    </ion-list>  
   </ion-content>
 </ion-menu>
 

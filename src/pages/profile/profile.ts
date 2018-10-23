@@ -47,7 +47,10 @@ export class ProfilePage {
 
   ionViewDidLoad() {
     this.showSplash = true;
-    this.suscribeUserInfo();    
+    //this.suscribeUserInfo(); 
+    this.userInfo = this.userService.getUser();
+    this.company = this.userService.getCompany();
+    this.checkUserData();   
     //this.userInfo = this.userService.getUser();
     //this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
     //this.company = this.userService.getCompany();
@@ -60,6 +63,7 @@ export class ProfilePage {
     console.log('toLocaleDateString', date.toLocaleDateString("es-ar", options));
 
   }
+  /*
   suscribeGetCompany() {
     this.userService.suscribeGetCompany()
       .subscribe(
@@ -67,10 +71,7 @@ export class ProfilePage {
           setTimeout(() => {
             console.log('suscribeGetCompany', data);
             this.company = data;
-            this.showSplash = false;
-            setTimeout(() => {
-              this.formatCompanyAddress(this.company);
-            }, 100);
+            this.showSplash = false;                     
           }, 100);
         },
         (error) => {
@@ -79,13 +80,15 @@ export class ProfilePage {
         }
       )
   }
+  */
+ /*
   suscribeUserInfo() {
     this.userService.suscribeUserInfo()
       .subscribe(
         (data) => {
           setTimeout(() => {
             console.log('suscribeUserInfo', data);
-            this.checkUserData(data);
+            this.checkUserData();
           }, 500);
         },
         (error) => {
@@ -94,32 +97,25 @@ export class ProfilePage {
         }
       )
   }
-  checkUserData(data) {
-    this.userInfo = data;    
-    this.isUserLoggedIn = data.isUserLoggedIn;    
-    if(!this.isUserLoggedIn){
-      
+*/
+  checkUserData() { 
+    this.isUserLoggedIn = this.userInfo.isUserLoggedIn;    
+    if(!this.userInfo.isUserLoggedIn){
+      console.log('this.isUserLoggedIn',this.isUserLoggedIn);
       this.showSplash = false;
   //    this.userService.logoutUser(this.userInfo);
     }else{
-      this.suscribeGetCompany();
-      
+      console.log('this.suscribeGetCompany   ---   this.isUserLoggedIn',this.isUserLoggedIn);
+      //this.suscribeGetCompany();    
+      this.showSplash = false;  
     }
     if (this.platform.is('android')) {
-      if(this.isUserLoggedIn){
-        this.pushNotifications(data);
+      if(this.userInfo.isUserLoggedIn){
+        this.pushNotifications(this.userInfo);
       }
     }
   }
 
-  formatCompanyAddress(company) {
-    let addressFormated = company.address + ' ' + company.street_number;
-    addressFormated = addressFormated + ', ' + company.city;
-    addressFormated = addressFormated + ', ' + company.county;
-    addressFormated = addressFormated + ', Argentina';
-    this.profileAddress.place = addressFormated;
-    console.log('formatCompanyAddress',addressFormated);
-  }
 
   logout() {
     if (this.platform.is('android')) {

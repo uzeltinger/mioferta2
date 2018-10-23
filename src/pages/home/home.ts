@@ -14,6 +14,8 @@ export class HomePage {
   userInfo: any = {};
   isUserLoggedIn: boolean = false;
   company: Company = new Company;
+  isAdmin: any = "isAdmin";
+
   constructor(public platform: Platform,
     public navCtrl: NavController, 
     private toast: Toast,
@@ -27,6 +29,17 @@ export class HomePage {
     console.log('HomePage : ionViewDidLoad : line 32 : this.userInfo ' , this.userInfo);    
     this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
     this.company = this.userService.getCompany();
+
+    this.userService.suscribeIsAdmin().subscribe(
+      (data) => {
+        console.log('data', data);
+        this.isAdmin = data;
+      },
+      (error) => {
+        console.log('error', error);
+      }
+    );
+    
   }
 
   public showWelcomeToast(){

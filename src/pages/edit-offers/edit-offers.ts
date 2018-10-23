@@ -60,8 +60,10 @@ export class EditOffersPage {
     console.log('ionViewDidLoad EditOffersPage');
     this.pictures_path = this.offerService.picturesPath;
     //this.isUserLoggedIn = this.userService.isUserLoggedIn;    
-    this.suscribeUserInfo();
-    //this.userInfo = this.userService.getUser();   
+    //this.suscribeUserInfo();
+    this.userInfo = this.userService.getUser();
+    this.company = this.userService.getCompany();
+    this.checkUserData();
     console.log('this.company', this.company);
     //this.getUserOffers();    
   }
@@ -80,7 +82,7 @@ export class EditOffersPage {
   ionViewDidEnter() {
     console.log('ionViewDidEnter EditOffersPage');
   }
-
+/*
   suscribeUserInfo() {
     this.userService.suscribeUserInfo()
       .subscribe(
@@ -96,13 +98,9 @@ export class EditOffersPage {
         }
       )
   }
-
-  checkUserData(data) {
-
-    this.company = this.userService.getCompany();
-
-    this.userInfo = data;
-    this.isUserLoggedIn = data.isUserLoggedIn;
+*/
+  checkUserData() {    
+    this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
     if (this.isUserLoggedIn) {
       this.getCompanyWhatsappTotal(this.userInfo.id);
       this.getUserOffers();

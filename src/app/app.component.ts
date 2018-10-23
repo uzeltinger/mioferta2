@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, AlertController } from 'ionic-angular';
+import { Nav, Platform, AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 //import { HeaderColor } from '@ionic-native/header-color';
@@ -32,10 +32,11 @@ export class MyApp {
   rootPage: any = HomePage;
 
   pages: Array<{ title: string, component: any, icon: string }>;
+  adminPage: any = { title: "", component: "", icon: "" };
 
   isUserLoggedIn: boolean = false;
   userInfo: any = [];
-
+  isAdmin: boolean = false;
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     private network: Network,
@@ -44,7 +45,8 @@ export class MyApp {
     private alertController: AlertController,
     public proveedor: ProveedorProvider,
     private toast: Toast,
-    private push: Push) {
+    private push: Push,
+    private events: Events) {
     this.initializeApp();
     // used for an example of ngFor and navigation
     this.pages = [
@@ -53,6 +55,10 @@ export class MyApp {
       { title: 'Mi Negocio', component: ProfilePage, icon: 'person' },
       { title: 'Acerca de Mi Oferta', component: AboutPage, icon: 'information-circle' }
     ];
+
+    this.adminPage = 
+      { title: 'Empresas', component: AdminEmpresasPage, icon: 'podium' }
+    ;
 
   }
 
@@ -74,22 +80,39 @@ export class MyApp {
       console.log('I am an core platform!');
     }
     this.platform.ready().then(() => {
-      this.listenConnection();
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+
+      /*this.userService.suscribeIsAdmin().subscribe(
+        (data) => {
+          console.log('data', data);
+          this.isAdmin = data;
+        },
+        (error) => {
+          console.log('error', error);
+        }
+      );*/
+      this.events.subscribe('userIsAdmin',(() => {
+        console.log('event received');
+        this.isAdmin = true;
+      }));
+      this.events.subscribe('userIsNotAdmin',(() => {
+        console.log('event received');
+        this.isAdmin = false;
+      }));
+      
+      this.listenConnection();     
+      if (this.platform.is('android')) {
       this.statusBar.styleBlackOpaque();
       this.statusBar.backgroundColorByHexString('#B40F00');
       this.statusBar.show();
-      //this.headerColor.tint('#E72000');
       this.splashScreen.hide();
-
+    }
       this.userService.suscribeUserInfo()
         .subscribe(
           (data) => {
             setTimeout(() => {
               console.log('data', data);
               this.checkUserData(data);
-            }, 1000);
+            }, 100);
           },
           (error) => {
             console.log('error', error);

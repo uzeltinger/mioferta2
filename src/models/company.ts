@@ -1,5 +1,5 @@
 export class Company {
-    id: number;
+  id: number;
   name: string;
   whatsapp: string;
   address: string;
@@ -10,4 +10,5 @@ export class Company {
   province: string;
   latitude: string;
   longitude: string;
+  place: string;
 }

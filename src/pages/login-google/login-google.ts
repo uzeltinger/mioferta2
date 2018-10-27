@@ -127,7 +127,11 @@ export class LoginGooglePage {
 
 
       })
-      .catch(err => console.error('LoginGooglePage login : err : line 128: ',err));
+      .catch(err => {
+        console.error('LoginGooglePage login : err : line 128: ',err);
+        this.showSplash = false; 
+        this.showToast('Error al intentar usar Google');
+      });
   }
 
   logout() {
@@ -142,4 +146,18 @@ export class LoginGooglePage {
   goProfilePage(){
     this.navCtrl.setRoot(ProfilePage);
   }
+
+
+  showToast(text: string, duration: string = '3000', position: string = 'bottom') {
+    if (this.platform.is('android')) {
+      this.toast.show(text, duration, position).subscribe(
+        toast => {
+          console.log('LoginGooglePage line: 155  toast error ', text);
+        }
+      );
+    }
+
+  }
+
+
 }

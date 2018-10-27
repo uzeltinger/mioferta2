@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, BlockerDelegate } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { OfferPage } from '../offer/offer';
 import { StatusBar } from '@ionic-native/status-bar';
 import { ProveedorProvider } from '../../providers/proveedor/proveedor';

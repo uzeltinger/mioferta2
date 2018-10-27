@@ -1,5 +1,5 @@
-import { Component, ViewChild, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import {FormControl} from "@angular/forms";
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
@@ -21,8 +21,7 @@ import { MapsAPILoader } from '@agm/core';
     constructor(public navCtrl: NavController, 
         public navParams: NavParams, 
         private mapsAPILoader: MapsAPILoader,
-        public viewCtrl: ViewController,
-        private ngZone: NgZone) {
+        public viewCtrl: ViewController) {
             console.log('latitude', navParams.get('latitude'));
             console.log('longitude', navParams.get('longitude'));
           /*this.zoom = 12;

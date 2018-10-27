@@ -1,14 +1,12 @@
+/*
+
+
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
 
-/**
- * Generated class for the ProfileAddressPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @Component({
   selector: 'page-profile-address',
@@ -35,7 +33,7 @@ export class ProfileAddressPage {
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder) {
       this.profileAddres =  {} as NativeGeocoderReverseResult;
-      /**/
+      
   }
 
   ionViewDidLoad() {
@@ -85,16 +83,5 @@ if (this.platform.is('core')) {
 }
 }
 
-/*
-<ion-content padding>
-<br>  countryCode: {{profileAddres.countryCode}}
-<br>  countryName: {{profileAddres.countryName}}
-<br>  postalCode: {{profileAddres.postalCode}}
-<br>  administrativeArea: {{profileAddres.administrativeArea}}
-<br>  subAdministrativeArea: {{profileAddres.subAdministrativeArea}}
-<br>  locality: {{profileAddres.locality}}
-<br>  thoroughfare: {{profileAddres.thoroughfare}}
-<br>  subThoroughfare: {{profileAddres.subThoroughfare}}
 
-</ion-content>
 */

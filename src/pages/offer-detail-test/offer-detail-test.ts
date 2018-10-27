@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Offer } from '../../models/offer';
 
 /**
@@ -9,7 +9,6 @@ import { Offer } from '../../models/offer';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-offer-detail-test',
   templateUrl: 'offer-detail-test.html',

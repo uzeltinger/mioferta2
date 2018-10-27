@@ -61,9 +61,9 @@
                     (click)="showAddressModal()" [(ngModel)]="company.place"></ion-input>
 
             </ion-item>
-            <ion-item text-center class="item-guardar-comercio">
-                <button class="button-action guardar-comercio" ion-button color="verdeDaniel" type="submit">Alta del
-                    Comercio</button>
+            <ion-item text-center class="item-guardar-comercio">        
+                <button *ngIf="company.id" class="button-action guardar-comercio" ion-button color="verdeDaniel" type="submit">Guardar Comercio</button>
+                <button *ngIf="!company.id" class="button-action guardar-comercio" ion-button color="verdeDaniel" type="submit">Alta del Comercio</button>
             </ion-item>
 
         </form>

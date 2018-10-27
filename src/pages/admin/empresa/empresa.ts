@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Company } from '../../../models/company';
 import { OfferServiceProvider } from '../../../providers/offer-service/offer-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
-import { User } from '../../../models/user';
+//import { User } from '../../../models/user';
 import { AdminProvider } from '../../../providers/admin/admin';
 
 /**

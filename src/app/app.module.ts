@@ -25,7 +25,7 @@ import { AdminEmpresaPage } from '../pages/admin/empresa/empresa';
 import { ConsultsPage } from '../pages/consults/consults';
 import { OffersPage } from '../pages/offers/offers';
 import { OfferPage } from '../pages/offer/offer';
-//import { OfferAddressMapModalPage } from '../pages/offer/offer-address-map-modal';
+import { OfferAddressMapModalPage } from '../pages/offer/offer-address-map-modal';
 import { LoginPage } from '../pages/login/login';
 import { LoginGooglePage } from '../pages/login-google/login-google';
 import { LoginFacebookPage } from '../pages/login-facebook/login-facebook';
@@ -59,7 +59,7 @@ import { AdminProvider } from '../providers/admin/admin';
     LoginPage,LoginGooglePage,LoginFacebookPage,AboutPage,
     ProfilePage,CategoriesPage,CategoryPage,EditOffersPage,EditOfferPage,
     ProfileAddressPage, ProfileAutocompleteAddressPage, OfferDetailTestPage, 
-    ModalSearchPage, ShareOffersPage, ConsultsPage,AdminEmpresasPage,AdminEmpresaPage
+    ModalSearchPage, ShareOffersPage, ConsultsPage,AdminEmpresasPage,AdminEmpresaPage,OfferAddressMapModalPage
     //,    OfferAddressMapModalPage
   ],
   imports: [
@@ -81,7 +81,7 @@ import { AdminProvider } from '../providers/admin/admin';
     LoginPage,LoginGooglePage,LoginFacebookPage,AboutPage,
     ProfilePage,CategoriesPage,CategoryPage,EditOffersPage,EditOfferPage,
     ProfileAddressPage, ProfileAutocompleteAddressPage, OfferDetailTestPage, ModalSearchPage,
-    ShareOffersPage, ConsultsPage, AdminEmpresasPage,AdminEmpresaPage
+    ShareOffersPage, ConsultsPage, AdminEmpresasPage,AdminEmpresaPage,OfferAddressMapModalPage
     //,    OfferAddressMapModalPage
   ],
   providers: [

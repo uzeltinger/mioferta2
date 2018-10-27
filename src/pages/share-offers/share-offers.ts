@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
-import { EditOfferPage } from '../edit-offer/edit-offer';
 import { User } from '../../models/user';
 import { Company } from '../../models/company';
 import { OfferServiceProvider } from '../../providers/offer-service/offer-service';

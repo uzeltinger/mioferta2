@@ -8,19 +8,11 @@ import { HomePage } from '../pages/home/home';
 import { OffersPage } from '../pages/offers/offers';
 import { ProfilePage } from '../pages/profile/profile';
 import { AboutPage } from '../pages/about/about';
-//import { CategoriesPage } from '../pages/categories/categories';
-import { User } from '../models/user';
 import { UserServiceProvider } from '../providers/user-service/user-service';
-import { OfferDetailTestPage } from '../pages/offer-detail-test/offer-detail-test';
-import { ShareOffersPage } from '../pages/share-offers/share-offers';
-//import { ProfileAddressPage } from '../pages/profile-address/profile-address';
-import { EditOffersPage } from '../pages/edit-offers/edit-offers';
-import { ConsultsPage } from '../pages/consults/consults';
 import { Network } from '@ionic-native/network';
 import { Toast } from '@ionic-native/toast';
 import { ProveedorProvider } from '../providers/proveedor/proveedor';
 import { AdminEmpresasPage } from '../pages/admin/empresas/empresas';
-//import { EditOfferPage } from '../pages/edit-offer/edit-offer';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 @Component({

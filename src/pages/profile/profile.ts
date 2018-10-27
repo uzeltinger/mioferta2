@@ -54,9 +54,7 @@ export class ProfilePage {
     //this.userInfo = this.userService.getUser();
     //this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
     //this.company = this.userService.getCompany();
-    let date = new Date();
-    var lastDay = new Date(date.getFullYear(), date.getMonth(), 0);
-    var toDay = new Date();
+    let date = new Date();    
     var options = {
       year: "numeric", month: "short", day: "numeric"
     };
@@ -229,8 +227,9 @@ export class ProfilePage {
       if (typeof data != "undefined" && data != null) {
         console.log('data', data);
         this.profileAddress.place = data.formatted_address;
+        this.company.place = data.formatted_address;
         this.placeToAddress(data);
-        console.log('this.profileAddress.place', this.profileAddress.place);
+        console.log('this.company.place', this.company.place);
       }
 
     });

@@ -48,9 +48,9 @@ export class MyApp {
       { title: 'Acerca de Mi Oferta', component: AboutPage, icon: 'information-circle' }
     ];
 
-    this.adminPage = 
+    this.adminPage =
       { title: 'Empresas', component: AdminEmpresasPage, icon: 'podium' }
-    ;
+      ;
 
   }
 
@@ -82,22 +82,22 @@ export class MyApp {
           console.log('error', error);
         }
       );*/
-      this.events.subscribe('userIsAdmin',(() => {
+      this.events.subscribe('userIsAdmin', (() => {
         console.log('event received');
         this.isAdmin = true;
       }));
-      this.events.subscribe('userIsNotAdmin',(() => {
+      this.events.subscribe('userIsNotAdmin', (() => {
         console.log('event received');
         this.isAdmin = false;
       }));
-      
-      this.listenConnection();     
+
+      this.listenConnection();
       if (this.platform.is('android')) {
-      this.statusBar.styleBlackOpaque();
-      this.statusBar.backgroundColorByHexString('#B40F00');
-      this.statusBar.show();
-      this.splashScreen.hide();
-    }
+        this.statusBar.styleBlackOpaque();
+        this.statusBar.backgroundColorByHexString('#B40F00');
+        this.statusBar.show();
+        this.splashScreen.hide();
+      }
       this.userService.suscribeUserInfo()
         .subscribe(
           (data) => {
@@ -118,12 +118,12 @@ export class MyApp {
     this.userInfo = data;
     this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
     console.log('data.email ', data.email);
-    if (data.email == "emiliouzeltinger@gmail.com" 
-    || data.email == "fabiouz@gmail.com"
-    || data.email == "riverasdaniel@gmail.com") {
+    if (data.email == "emiliouzeltinger@gmail.com"
+      || data.email == "fabiouz@gmail.com"
+      || data.email == "riverasdaniel@gmail.com") {
       console.log('this.userInfo ', this.userInfo);
       this.pages.push({ title: 'Empresas', component: AdminEmpresasPage, icon: 'podium' });
-    }else{
+    } else {
       console.log('ninguno');
     }
   }
@@ -184,61 +184,61 @@ export class MyApp {
 
 
 
-  pushNotifications(){
+  pushNotifications() {
     // to check if we have permission
     this.push.hasPermission()
       .then((res: any) => {
-    
+
         if (res.isEnabled) {
           console.log('We have permission to send push notifications');
         } else {
           console.log('We do not have permission to send push notifications');
         }
-    
+
       });
-    
+
     // Create a channel (Android O and above). You'll need to provide the id, description and importance properties.
     this.push.createChannel({
-     id: "testchannel1",
-     description: "My first test channel",
-     // The importance property goes from 1 = Lowest, 2 = Low, 3 = Normal, 4 = High and 5 = Highest.
-     importance: 3
+      id: "testchannel1",
+      description: "My first test channel",
+      // The importance property goes from 1 = Lowest, 2 = Low, 3 = Normal, 4 = High and 5 = Highest.
+      importance: 3
     }).then(() => console.log('Channel created'));
-    
+
     // Delete a channel (Android O and above)
     this.push.deleteChannel('testchannel1').then(() => console.log('Channel deleted'));
-    
+
     // Return a list of currently configured channels
     this.push.listChannels().then((channels) => console.log('List of channels', channels))
-    
+
     // to initialize push notifications
-    
+
     const options: PushOptions = {
-       android: {},
-       ios: {
-           alert: 'true',
-           badge: true,
-           sound: 'false'
-       },
-       windows: {},
-       browser: {
-           pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-       }
+      android: {},
+      ios: {
+        alert: 'true',
+        badge: true,
+        sound: 'false'
+      },
+      windows: {},
+      browser: {
+        pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+      }
     };
-    
+
     const pushObject: PushObject = this.push.init(options);
-    
-    
+
+
     pushObject.on('notification').subscribe(
       (notification: any) => {
         console.log('Received a notification', notification)
-        }
-      );
-    
-    pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
-    
-    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
       }
+    );
 
-      
+    pushObject.on('registration').subscribe((registration: any) => console.log('Device registered', registration));
+
+    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+  }
+
+
 }

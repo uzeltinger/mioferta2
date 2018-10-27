@@ -205,13 +205,13 @@
             <ion-row>
                 <div class="price-col-50 price">
                     <ion-label color="light" stacked>Precio</ion-label>
-                    <ion-input class="ion-input-trans" type="number" name="price" placeholder="Precio" id="price"
+                    <ion-input class="ion-input-trans" type="number" name="price" placeholder="Precio" id="price" (ionChange)="priceChanged()"
                         #price="ngModel" [(ngModel)]="offerNew.price" required></ion-input>
                 </div>
                 <div class="price-col-50 specialPrice">
                     <ion-label color="light" stacked>Precio Especial</ion-label>
                     <ion-input class="ion-input-trans" type="number" name="specialPrice" placeholder="Precio Especial"
-                        id="specialPrice" #specialPrice="ngModel" [(ngModel)]="offerNew.specialPrice" required></ion-input>
+                        id="specialPrice" #specialPrice="ngModel" [(ngModel)]="offerNew.specialPrice" (ionChange)="specialPriceChanged()" required></ion-input>
                 </div>
             </ion-row>
         </ion-grid>
@@ -221,7 +221,7 @@
             <ion-col col-6>
                 <ion-item>
                     <ion-label>2X1</ion-label>
-                    <ion-toggle color="verde" [(ngModel)]="offerNew.dosporuno" name="dosporuno"></ion-toggle>
+                    <ion-toggle color="verde" (ionChange)="toggleOfferDosPorUno(offerNew)" [(ngModel)]="dosporuno" name="dosporuno"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>

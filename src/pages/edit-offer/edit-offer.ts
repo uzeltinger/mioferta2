@@ -40,6 +40,7 @@ export class EditOfferPage {
   showSplash: boolean = false;
   pictures_path: string;
   offerPageTitle: string = "Agregar Oferta";
+  dosporuno: boolean = false;
 
   constructor(public platform: Platform,
     public navCtrl: NavController,
@@ -73,7 +74,7 @@ export class EditOfferPage {
     //console.log('this.userInfo',this.userInfo);
     //console.log('this.company',this.company);
 
-    this.offerNew = { "offer_id": "0", "subject": "", "description": "", "price": "", "specialPrice": "", "companyId": "", "main_subcategory": "", "categories": [], "state": "1", "currencyId": "8", "image": "", "dosporuno": true };
+    this.offerNew = { "offer_id": "0", "subject": "", "description": "", "price": "", "specialPrice": "", "companyId": "", "main_subcategory": "", "categories": [], "state": "1", "currencyId": "8", "image": ""};
     this.getCategories();
     if (this.offer.id == 0) {
       this.isNewOffer = true;
@@ -98,6 +99,26 @@ export class EditOfferPage {
         },
         (error) => { console.log('error', error); }
       )
+  }
+  priceChanged(){
+    if(this.dosporuno){
+      this.offerNew.specialPrice = this.offerNew.price/2;
+    }
+  }
+  specialPriceChanged(){
+    if(this.dosporuno){
+      this.offerNew.price = this.offerNew.specialPrice*2;
+    }
+  }
+  toggleOfferDosPorUno(offer){
+    if(this.dosporuno){
+      if(this.offerNew.price){
+        this.offerNew.specialPrice = this.offerNew.price/2;
+      }else{        
+        this.showAlert("Ingrese Precio", "Para usar el tipo de oferta 2x1, debe ingresar un precio.");
+      }
+    }
+    console.log('this.offerNew',this.offerNew);
   }
 
   onSubmitSaveOffer(formulario) {

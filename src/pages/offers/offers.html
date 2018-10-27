@@ -23,7 +23,7 @@
     <ion-card *ngFor="let offer of offers" class="offer-list-card">    
         <div class="offer-list-card-img">
             <img (click)="navToOfferPage($event, offer)" src="https://mioferta.com.ar/media/com_jbusinessdirectory/pictures{{offer.picture_path}}">        
-            <div class="offer-list-discount" (click)="navToOfferPage($event, offer)"><span>-{{offer.priceDiscount}}%</span></div>
+            <div class="offer-list-discount" [ngClass]="{'dosporuno' : offer.dosporuno}" (click)="navToOfferPage($event, offer)"><span>{{offer.showDiscount}}</span></div>
             <div class="offer-list-icon-whatsapp">
                 <ion-icon float-right>
                     <a target="_blank" (click)="increaseWhatsappClick(offer)" href="https://api.whatsapp.com/send?phone=54{{offer.phone}}&text={{whatsappText}} {{offer.link}}">

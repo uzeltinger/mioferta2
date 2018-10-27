@@ -84,6 +84,9 @@ export class EditOfferPage {
     } else {
       this.offerNew = this.offer;
       this.offerNew.offer_id = this.offer.id;
+      if(this.offerNew.price/2==this.offerNew.specialPrice){
+        this.dosporuno = true;
+      }
       console.log('this.offerNew.categories', this.offerNew.categories);
       console.log('this.offerNew.main_subcategory', this.offerNew.main_subcategory);
     }

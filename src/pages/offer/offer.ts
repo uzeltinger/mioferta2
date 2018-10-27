@@ -30,6 +30,14 @@ export class OfferPage {
     this.latitude = 0;
     this.longitude = 0;
     this.setCurrentPosition();
+
+    this.offer.showDiscount = "-" + this.offer.priceDiscount + "%";
+    this.offer.dosporuno = false;
+          if(this.offer.price/2==this.offer.specialPrice){
+            this.offer.showDiscount = "2x1";
+            this.offer.dosporuno = true;
+          }
+
   }
 
   increaseWhatsappClick(offer){

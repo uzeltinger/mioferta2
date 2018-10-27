@@ -95,6 +95,12 @@ export class OffersPage {
       (data)=> {         
         this.offers = data; 
         this.offers.forEach((element : any) => {
+          element.showDiscount = "-" + element.priceDiscount + "%";
+          element.dosporuno = false;
+          if(element.price/2==element.specialPrice){
+            element.showDiscount = "2x1";
+            element.dosporuno = true;
+          }
           if(element.distance!=null){
             element.distance = Math.round(element.distance * 100) / 100;
           }          

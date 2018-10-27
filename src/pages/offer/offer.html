@@ -16,7 +16,7 @@
         <ion-card class="offer-list-card">    
             <div class="offer-list-card-img">
                 <img src="https://mioferta.com.ar/media/com_jbusinessdirectory/pictures{{offer.picture_path}}">        
-                <div class="offer-list-discount"><span>-{{offer.priceDiscount}}%</span></div>
+                <div class="offer-list-discount" [ngClass]="{'dosporuno' : offer.dosporuno}"><span>{{offer.showDiscount}}</span></div>
                 
             </div>
             

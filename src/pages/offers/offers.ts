@@ -43,7 +43,7 @@ export class OffersPage {
     public statusBar: StatusBar,
     public modalCtrl: ModalController) {
     this.whatsappText = "Dentro%20de%20las%2048hs.%20paso%20a%20retirar%20la%20oferta.%0AMuchas%20gracias.%0A";
-  
+    this.whatsappText = "Entre%20hoy%20y%20mañana%20paso%20a%20retirar%20la%20oferta.%0AGracias";
   }
 
   ionViewDidLoad() {
@@ -97,6 +97,7 @@ export class OffersPage {
     this.proveedor.obtenerOfertas(sendData)
     .subscribe(
       (data)=> {    
+        console.log('data',data) ;    
         if(data.length<this.offersLimit){
           this.offersShowAll = true;
         

@@ -17,7 +17,9 @@ export class OfferPage {
   offer: any
   latitude: number;
   longitude: number;
-  mapUrl: string;
+  mapUrl: string;  
+  whatsappText:string = "Entre%20hoy%20y%20mañana%20paso%20a%20retirar%20la%20oferta.%0AGracias";
+
   public zoom: number;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public offerService: OfferServiceProvider) {

@@ -100,6 +100,7 @@ export class OffersPage {
         console.log('data',data) ;    
         if(data.length<this.offersLimit){
           this.offersShowAll = true;
+          }
         
         this.offers = data; 
         this.offers.forEach((element : any) => {
@@ -113,9 +114,10 @@ export class OffersPage {
             element.distance = Math.round(element.distance * 100) / 100;
           }
           this.items.push(element);
+          console.log('this.items',this.items);
         });
-      }
-        console.log('this.items',this.items) ;        
+      
+        console.log('this.items',this.items);
         this.showSplash = false;
       },
       (error)=>{

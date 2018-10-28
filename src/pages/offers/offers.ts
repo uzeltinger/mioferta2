@@ -30,6 +30,10 @@ export class OffersPage {
   latitude: number = 0;
   longitude: number = 0;
   filtrosAplicados: boolean = false;
+  items: any = [];
+  offersLimitStart: number = 0;
+  offersLimit: number = 10;
+  offersShowAll: boolean = false;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -89,10 +93,13 @@ export class OffersPage {
     }else{
       this.filtrosAplicados = false;
     }
-    let sendData = {"cities":this.citiesFiltered,"categories":this.categoriesFiltered,"latitude":this.latitude,"longitude":this.longitude};
+    let sendData = {"cities":this.citiesFiltered,"categories":this.categoriesFiltered,"latitude":this.latitude,"longitude":this.longitude,"limit":this.offersLimit,"limitstart": this.offersLimitStart};
     this.proveedor.obtenerOfertas(sendData)
     .subscribe(
-      (data)=> {         
+      (data)=> {    
+        if(data.length<this.offersLimit){
+          this.offersShowAll = true;
+        
         this.offers = data; 
         this.offers.forEach((element : any) => {
           element.showDiscount = "-" + element.priceDiscount + "%";
@@ -103,12 +110,12 @@ export class OffersPage {
           }
           if(element.distance!=null){
             element.distance = Math.round(element.distance * 100) / 100;
-          }          
+          }
+          this.items.push(element);
         });
-        
+      }
+        console.log('this.items',this.items) ;        
         this.showSplash = false;
-        console.log('data',data) ;
-        console.log('this.offers',this.offers) ;
       },
       (error)=>{
         console.log('error',error);
@@ -118,6 +125,20 @@ export class OffersPage {
       }
     )
   }
+
+  doInfinite(): Promise<any> {
+    console.log('Begin async operation');
+    return new Promise((resolve) => {
+      this.offersLimitStart += this.offersLimit;
+      if(!this.offersShowAll){
+      this.getOffers();
+      }
+      setTimeout(() => {    
+        resolve();
+      }, 1000);
+    })  
+  }
+
   navToOfferPage(event, offer){
     this.navCtrl.push(OfferPage, {
       offer: offer

@@ -286,8 +286,8 @@ export class EditOffersPage {
 
   goShareOffers() {
 
-    if (this.offersTotal > 20) {
-      if (this.offersActives > 20) {
+    if (this.offersTotal > 19) {
+      if (this.offersActives > 19) {
         this.navCtrl.push(ShareOffersPage);
       } else {
         this.showAlert('Debes tener al menos 20 ofertas publicadas para poder compartirlas por whatsapp.', '');

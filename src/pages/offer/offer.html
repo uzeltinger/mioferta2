@@ -39,7 +39,7 @@
       <ion-card-content>
         <p><ion-icon name='podium'></ion-icon> <span>{{offer.company_name}}</span></p>
         <div class="offer-direction">
-          <p class="p-address"> <span>{{offer.full_address}}</span></p>
+          <p class="p-address"> <span>{{offer.full_address}} <a class="vermapa" (click)="showAddressMapModal(offer)">Ver Mapa</a></span></p>
        
         <div class="icon-map-direction">
           <!--<a href="https://maps.google.com/?saddr={{offer.latitude}},{{offer.longitude}}&daddr={{latitude}},{{longitude}}" onclick="window.open(this.href, '_self', 'location=yes'); return false;" ><ion-icon right name='map'></ion-icon></a>

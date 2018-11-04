@@ -34,6 +34,7 @@ export class ProfilePage {
   province: string;
   city: string;
   postal_code: string;
+  canSave: boolean = false;
 
   constructor(public platform: Platform,
     public navCtrl: NavController,
@@ -216,12 +217,16 @@ export class ProfilePage {
       );
   }
 
-
+  onFocus(){
+    this.canSave=true;
+    console.log('focus');
+  }
 
 
   showAddressModal() {
     let modal = this.modalCtrl.create(ProfileAutocompleteAddressPage);
     //let me = this;
+    this.onFocus();
     modal.onDidDismiss(data => {
       console.log('aca', typeof data);
       if (typeof data != "undefined" && data != null) {

@@ -49,20 +49,21 @@
         <form (ngSubmit)="companyForm()">
             <ion-item>
                 <ion-label color="light" stacked>Nombre del Comercio</ion-label>
-                <ion-input class="ion-input-trans" type="text" name="name" placeholder="Nombre" [(ngModel)]="company.name"></ion-input>
+                <ion-input class="ion-input-trans" type="text" name="name" placeholder="Nombre" [(ngModel)]="company.name" (focus)="onFocus()"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label color="light" stacked>Whatsapp</ion-label>
-                <ion-input class="ion-input-trans" type="tel" name="whatsapp" placeholder="Whatsapp" [(ngModel)]="company.whatsapp"></ion-input>
+                <ion-input class="ion-input-trans" type="tel" name="whatsapp" placeholder="Whatsapp" [(ngModel)]="company.whatsapp" (focus)="onFocus()"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label color="light" stacked>Direccion del Comercio</ion-label>
                 <ion-input disabled="true" class="ion-input-trans" type="text" name="address" placeholder="Dirección"
-                    (click)="showAddressModal()" [(ngModel)]="company.place"></ion-input>
+                    (click)="showAddressModal()" [(ngModel)]="company.place" (focus)="onFocus()"></ion-input>
 
             </ion-item>
             <ion-item text-center class="item-guardar-comercio">        
-                <button *ngIf="company.id" class="button-action guardar-comercio" ion-button color="verdeDaniel" type="submit">Guardar Comercio</button>
+                <button *ngIf="company.id" class="button-action guardar-comercio" ion-button color="verdeDaniel" type="submit"
+                [disabled]="!canSave">Guardar Comercio</button>
                 <button *ngIf="!company.id" class="button-action guardar-comercio" ion-button color="verdeDaniel" type="submit">Alta del Comercio</button>
             </ion-item>
 

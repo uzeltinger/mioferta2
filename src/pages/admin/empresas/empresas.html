@@ -37,11 +37,20 @@
   <ion-card color="colorRojoOscuro" *ngFor="let company of companies">
       <ion-row class="item-renglon">
           
-            <ion-item>
-                    <ion-label (click)="goCompanyDetail($event,company)">{{company.name}}</ion-label>
-                    <ion-toggle color="verde" (ionChange)="toggleCompanyState(company)" [(ngModel)]="company.isAssigned"></ion-toggle>
-                  </ion-item>
-
+        <ion-item>
+            <ion-label (click)="goCompanyDetail($event,company)">{{company.name}}</ion-label>
+            <div class="ion-badge-container" item-end>
+                    <ion-badge item-center class="ion-badge" color="light">
+                        {{company.whatsapps.lastMonthConsults}}
+                    </ion-badge>
+                </div>
+                <div class="ion-badge-container" item-end>
+                    <ion-badge item-center class="ion-badge" color="verdeDaniel">
+                        {{company.whatsapps.thisMonthConsults}}
+                    </ion-badge>
+                </div>
+            <ion-toggle color="verde" (ionChange)="toggleCompanyState(company)" [(ngModel)]="company.isAssigned"></ion-toggle>
+        </ion-item>
           
       </ion-row>
   </ion-card>          

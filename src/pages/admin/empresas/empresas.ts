@@ -21,6 +21,8 @@ export class AdminEmpresasPage {
   companiesTotal:number=0;
   companiesActives:number=0;
   companiesWhatsappTotal:number=0;
+  companiesWhatsappList: any;
+
   constructor(
     public platform: Platform,
     public navCtrl: NavController, 
@@ -37,25 +39,32 @@ export class AdminEmpresasPage {
     console.log('this.companies',this.companies);
   }
 
+  getTotalConsults(company,month){    
+    if(month==1){
+      return company.whatsapps.lastMonthConsults;
+    }else{
+      return company.whatsapps.thisMonthConsults;
+    }
+  }
   getAdminCompanies(){
     this.adminService.getAdminCompanies()
     .subscribe(
-      (data)=> {         
+      (data)=> {
         this.companies = data; 
         this.showSplash = false;
         console.log('data',data) ;
 
         let companiesActives = 0;
         this.companiesTotal = this.companies.length;
-        this.companies.forEach(function (value) {    
+        this.companies.forEach(function (value) {          
           if(value.state == 1){
             value.isAssigned = true;
             companiesActives++;
-          }
+          }          
         }); 
         this.companiesActives = companiesActives;
 
-
+        console.log('this.companiesWhatsappList',this.companiesWhatsappList);
       },
       (error)=>{
         console.log('error',error);

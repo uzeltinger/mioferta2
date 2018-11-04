@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 //import { OfferAddressMapModalPage } from './offer-address-map-modal';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { OfferServiceProvider } from '../../providers/offer-service/offer-service';
 /**
  * Generated class for the OfferPage page.
@@ -22,7 +23,9 @@ export class OfferPage {
 
   public zoom: number;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public offerService: OfferServiceProvider) {
+    private modalCtrl: ModalController,
+    public offerService: OfferServiceProvider, 
+    private iab: InAppBrowser) {
     this.offer = navParams.data.offer;
     console.log('this.offer', this.offer);
   }
@@ -60,6 +63,8 @@ export class OfferPage {
     let mapUrl = 'https://maps.google.com/?saddr='+offer.latitude+',';
     mapUrl = mapUrl + offer.longitude+'&daddr='+this.latitude+','+this.longitude;
     console.log('mapUrl', mapUrl);    
+    const browser = this.iab.create(mapUrl, '_blank', 'location=yes,toolbarcolor=#FD0000,closebuttoncolor=#FFFFFF,closebuttoncaption=Cerrar,hidenavigationbuttons=yes,hideurlbar=yes,footer=no');
+    
   }
   private setCurrentPosition() {
     if ("geolocation" in navigator) {

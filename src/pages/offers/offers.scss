@@ -10,11 +10,13 @@ page-offers {
         color: #fff;
     }
     .boton-buscar {
-        position: fixed;
+        position: absolute;
         bottom: 0;
+        left: 0;
         width: 100%;
         text-align: center;
         background: none;
+        z-index: 10;
     }    
     .boton-buscar .item {
         background: none;

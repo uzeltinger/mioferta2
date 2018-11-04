@@ -6,23 +6,25 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-  <button ion-button menuToggle>
-    <ion-icon name="menu"></ion-icon>
-  </button>
-  <ion-title>Ofertas</ion-title>
-</ion-navbar>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Ofertas</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 <div *ngIf="showSplash" class="splash">
-  <div class="spinner"><ion-spinner></ion-spinner></div>
+    <div class="spinner">
+        <ion-spinner></ion-spinner>
+    </div>
 </div>
 
-<ion-content  class="darkbackground">
-    <ion-card *ngFor="let offer of items" class="offer-list-card">    
+<ion-content class="darkbackground">
+    <ion-card *ngFor="let offer of items" class="offer-list-card">
         <div class="offer-list-card-img">
-            <img (click)="navToOfferPage($event, offer)" src="https://mioferta.com.ar/media/com_jbusinessdirectory/pictures{{offer.picture_path}}">        
+            <img (click)="navToOfferPage($event, offer)" src="https://mioferta.com.ar/media/com_jbusinessdirectory/pictures{{offer.picture_path}}">
             <div class="offer-list-discount" [ngClass]="{'dosporuno' : offer.dosporuno}" (click)="navToOfferPage($event, offer)"><span>{{offer.showDiscount}}</span></div>
             <div class="offer-list-icon-whatsapp">
                 <ion-icon float-right>
@@ -36,34 +38,23 @@
             <ion-card-title>
                 <div class="offer-list-price">{{offer.specialPriceFormated}}</div>
             </ion-card-title>
-            <div class="offer-list-title text-uppercase">{{offer.subject}}</div>   
-            <div *ngIf="offer.distance" class="offer-list-distance">{{offer.distance}} Km</div>           
+            <div class="offer-list-title text-uppercase">{{offer.subject}}</div>
+            <div *ngIf="offer.distance" class="offer-list-distance">{{offer.distance}} Km</div>
         </ion-card-content>
 
     </ion-card>
-    <div class="boton-buscar">
-        <ion-item text-center>
-            <button class="button-action" ion-button block color="verdeDaniel" (click)="presentModal()"><div *ngIf="!filtrosAplicados">BUSCAR</div><div *ngIf="filtrosAplicados">LIMPIAR BÚSQUEDA</div></button>
-        </ion-item>
-    </div>
-
-
-
-
-
-
-
 
     <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
-        <ion-infinite-scroll-content
-          loadingSpinner="bubbles"
-          loadingText="Cargando más ofertas...">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más ofertas...">
         </ion-infinite-scroll-content>
-      </ion-infinite-scroll>
+    </ion-infinite-scroll>
 
-
-
-
-
-      
 </ion-content>
+<div class="boton-buscar">
+    <ion-item text-center>
+        <button class="button-action" ion-button block color="verdeDaniel" (click)="presentModal()">
+            <div *ngIf="!filtrosAplicados">BUSCAR</div>
+            <div *ngIf="filtrosAplicados">LIMPIAR BÚSQUEDA</div>
+        </button>
+    </ion-item>
+</div>

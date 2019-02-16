@@ -68,7 +68,7 @@ import { AdminProvider } from '../providers/admin/admin';
     HttpClientModule,
     IonicStorageModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCnahpwY4LRTYlzEHnER3B_Y8NR1HzmrVE",
+      apiKey: "AIzaSyDvjZXNlZt7bwiSor6mRWCSH3TwyXy96dA",
       libraries: ["places"]
     })
   ],

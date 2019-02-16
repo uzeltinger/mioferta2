@@ -95,7 +95,7 @@
     </config-file>
     <plugin name="cordova-sqlite-storage" spec="^2.3.3" />
     <plugin name="cordova-plugin-x-toast" spec="^2.6.2" />
-    <plugin name="cordova-plugin-googleplus" spec="^5.3.0">
+    <plugin name="cordova-plugin-googleplus" spec="^5.3.2">
         <variable name="PLAY_SERVICES_VERSION" value="11.6.2" />
         <variable name="REVERSED_CLIENT_ID" value="1061526641811-6eeq3chqo7btdmjpk20thc114td24bt8.apps.googleusercontent.com" />
     </plugin>

@@ -339,6 +339,8 @@ export class UserServiceProvider {
       this.storage.set('company_province', data.companyData.province);
       this.storage.set('company_latitude', data.companyData.latitude);
       this.storage.set('company_longitude', data.companyData.longitude);
+      this.company = data.companyData;
+      console.log('storeCompanyData : this.company ', this.company);
     }
   }
   // Envío de datos de formulario de registro

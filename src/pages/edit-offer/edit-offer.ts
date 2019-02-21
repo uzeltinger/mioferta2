@@ -72,7 +72,7 @@ export class EditOfferPage {
     this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
     this.company = this.userService.getCompany();
     //console.log('this.userInfo',this.userInfo);
-    //console.log('this.company',this.company);
+    console.log('this.company',this.company);
 
     this.offerNew = { "offer_id": "0", "subject": "", "description": "", "price": "", "specialPrice": "", "companyId": "", "main_subcategory": "", "categories": [], "state": "1", "currencyId": "8", "image": ""};
     this.getCategories();
@@ -146,7 +146,7 @@ export class EditOfferPage {
     //return null;
     this.offerNew.categories = formData.categories;
 
-    //console.log('this.offerNew',this.offerNew);
+    console.log('this.offerNew',this.offerNew);
 
 
     //console.log('this.offerNew.picture_path',this.offerNew.picture_path);

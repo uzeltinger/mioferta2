@@ -56,6 +56,11 @@ export class ProveedorProvider {
     }
 
   }
+  getCategoriesWithOffers() {
+    let url = '';
+    url = this.apiUrl + '/v1/categories/getCategoriesWithOffers';
+    return this.httpClient.get(url);
+  }
   getCategories() {
     let url = '';
     url = this.apiUrl + '/v1/categories/getCategories';

@@ -58,7 +58,7 @@ export class ModalSearchPage {
   }
 
   getCategories(){
-    this.proveedor.getCategories()
+    this.proveedor.getCategoriesWithOffers()
     .subscribe(
       (data)=> {
         this.categories = data; 

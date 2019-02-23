@@ -70,7 +70,7 @@
         </form>
 
         <ion-grid>
-            <ion-row align-items-center>
+            <ion-row align-items-center *ngIf="company.id">
                 <ion-col text-center>
                     <button ion-button icon-only class="button-link" color="colorTextGrey" (click)="goEditOffersPage()">
                         <ion-icon name="list"></ion-icon>

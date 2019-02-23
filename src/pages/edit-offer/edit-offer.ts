@@ -254,20 +254,12 @@ export class EditOfferPage {
   }
 
   takePicture() {
-    if (this.platform.is('core')) {
+    /*if (this.platform.is('core')) {
       let image = 'http://localhost:8100/1.jpg';
       this.getBase64String(image);
-      this.galleryPhoto = image;
-      /*
-            var img = document.createElement("img");
-            img.src = 'http://localhost:8100/perfil-fondo.jpg';
-            this.resize(img, 800, 800, (resized_jpeg) => {
-              this.base64Image = resized_jpeg;
-              this.galleryPhoto = resized_jpeg;
-              console.log('this.base64Image',this.base64Image);
-            });      
-            */
+      this.galleryPhoto = image;      
     } else {
+*/
       let options = {
         maximumImagesCount: 1,
         outType: 0,
@@ -282,7 +274,7 @@ export class EditOfferPage {
         }
         this.getBase64String(this.galleryPhoto);
       }, (err) => { });
-    }
+    //}
   }
 
   takePhoto() {

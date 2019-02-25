@@ -50,7 +50,7 @@ export class ProfilePage {
     this.showSplash = true;
     //this.suscribeUserInfo(); 
     this.userInfo = this.userService.getUser();
-    this.company = this.userService.getCompany();
+    this.company = this.userService.getCompany(); 
     this.checkUserData();   
     //this.userInfo = this.userService.getUser();
     //this.isUserLoggedIn = this.userInfo.isUserLoggedIn;
@@ -203,6 +203,7 @@ export class ProfilePage {
           } else {
             //this.userInfo = companyData.userData;
             //this.goProfilePage();
+            this.company = companyData.companyData;//this.userService.getCompany(); 
             this.showSplash = false;
             this.showToast('Comercio actualizado');
           }

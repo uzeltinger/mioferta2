@@ -10,6 +10,8 @@ import { User } from '../../models/user';
 import { Company } from '../../models/company';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Toast } from '@ionic-native/toast';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { File } from '@ionic-native/file';
 
 //import { EditOffersPage } from '../edit-offers/edit-offers';
 //import { ProfilePage } from '../profile/profile';
@@ -41,6 +43,7 @@ export class EditOfferPage {
   pictures_path: string;
   offerPageTitle: string = "Agregar Oferta";
   dosporuno: boolean = false;
+  imageSelected: any;
 
   constructor(public platform: Platform,
     public navCtrl: NavController,
@@ -52,6 +55,8 @@ export class EditOfferPage {
     private offerService: OfferServiceProvider,
     public proveedor: ProveedorProvider,
     public userService: UserServiceProvider,
+    private androidPermissions: AndroidPermissions,
+    private file: File,
     private toast: Toast) {
     this.offer = navParams.data.offer;
     if (typeof (this.offer) == 'undefined') {
@@ -89,6 +94,17 @@ export class EditOfferPage {
       }
       console.log('this.offerNew.categories', this.offerNew.categories);
       console.log('this.offerNew.main_subcategory', this.offerNew.main_subcategory);
+    }
+    if (this.platform.is('android')) {
+      this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.CAMERA).then(
+        result => 
+        {
+          console.log('Has permission?',result.hasPermission)
+        },
+        err => {
+          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.CAMERA)
+        }
+      );
     }
 
   }
@@ -270,9 +286,32 @@ export class EditOfferPage {
       this.imagePicker.getPictures(options).then((results) => {
         for (var i = 0; i < results.length; i++) {
           console.log('Image URI: ' + results[i]);
-          this.galleryPhoto = results[i];
+          this.imageSelected = results[i];
+          /*var filename = results[i].replace(/^.*[\\\/]/, '')
+          console.log('filename: ' + filename);
+          this.file.checkFile(results[i], filename)
+          .then(_ => console.log('Directory exists'))
+          .catch(err => console.log('Directory doesn\'t exist'));
+          this.file.resolveLocalFilesystemUrl(results[i])
+          .then(_ => console.log('file exists resolveLocalFilesystemUrl'))
+          .catch(err => console.log('file doesn\'t exist resolveLocalFilesystemUrl'));
+          let position = results[i].lastIndexOf("/");
+          let path = results[i].substring(0, position);
+          console.log('path: ' + path);  
+          let imageName = results[i].substring(position, 1000);
+          console.log('imageName: ' + imageName);
+          console.log('Emilio está aburrido: ');*/
+          this.file.resolveLocalFilesystemUrl(this.imageSelected)
+          .then(existe => {
+            this.galleryPhoto = this.imageSelected;
+            this.getBase64String(this.galleryPhoto);
+            console.log('file exists resolveLocalFilesystemUrl existe', existe)
+            console.log('file exists resolveLocalFilesystemUrl')
+          })
+          .catch(err => console.log('file doesn\'t exist resolveLocalFilesystemUrl'));
+          
         }
-        this.getBase64String(this.galleryPhoto);
+        
       }, (err) => { });
     //}
   }

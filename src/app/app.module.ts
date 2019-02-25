@@ -49,6 +49,8 @@ import { AboutPage } from '../pages/about/about';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { OfferServiceProvider } from '../providers/offer-service/offer-service';
 import { AdminProvider } from '../providers/admin/admin';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -103,7 +105,8 @@ import { AdminProvider } from '../providers/admin/admin';
     NativeGeocoder, InAppBrowser,
     Network,
     AdminProvider,
-    Push
+    Push,
+    AndroidPermissions, File
   ]
 })
 export class AppModule {}
